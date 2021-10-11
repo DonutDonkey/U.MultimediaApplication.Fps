@@ -1,6 +1,5 @@
 using Script.So.Events;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Script.Mono.Managers {
     public class GameManager : Mono.Singleton<GameManager> {
