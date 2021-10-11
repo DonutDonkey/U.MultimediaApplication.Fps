@@ -4,7 +4,7 @@ namespace Script.Mono {
     public class Singleton<T> : MonoBehaviour where T : Component {
         public static T Instance { get; private set; }
 
-        private void Awake() {
+        protected virtual void Awake() {
             if (Instance == null) {
                 Debug.Log(GetType().Name + "- Instance Created");
                 Instance = this as T;

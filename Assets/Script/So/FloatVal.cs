@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Script.So {
-    [CreateAssetMenu(fileName = "New Float Value", menuName = "Scriptable Objects/Values/Float")]
+    [CreateAssetMenu(fileName = "New Float Value", menuName = "Values/Float")]
     public class FloatValue : ScriptableObject {
         public float value;
 
