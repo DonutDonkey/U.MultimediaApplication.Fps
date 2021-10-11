@@ -8,7 +8,7 @@ namespace Script.So.Events {
 
         public void Raise(T item) {
             for (var i = listeners.Count - 1; i >= 0; i--) 
-                listeners[i].OnEventRaised(item);
+                listeners[i]?.OnEventRaised(item);
         }
 
         public void RegisterListener(IListener<T> listener) => listeners?.Add(listener);
