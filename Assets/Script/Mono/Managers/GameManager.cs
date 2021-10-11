@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Script.Mono.Managers {
-    public class M_GameManager : Mono.Singleton<M_GameManager> {
+    public class GameManager : Mono.Singleton<GameManager> {
         [SerializeField] private E_String string_event;
         
         private void Start() {
