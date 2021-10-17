@@ -1,5 +1,7 @@
+using UnityEngine;
+
 namespace Script {
     public interface IKnockbackable {
-        void KnockBack(float force);
+        void KnockBack(Vector3 other, float force);
     }
 }

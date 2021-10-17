@@ -34,11 +34,11 @@ namespace Script.Mono {
             plr_ctrl.Move(velocity * Time.deltaTime);
         }
 
-        public void KnockBack(float force) {
+        public void KnockBack(Vector3 other, float force) {
             knockback_counter = 0.5f;
-            // direction is this transform - other transform for later
-            velocity = -plr_ctrl.transform.forward * force;
-            velocity.y = force;
+            
+            velocity = (transform.position - other).normalized * force;
+            velocity.y = force > 10f ? force : velocity.y;
         }
     }
 }

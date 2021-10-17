@@ -1,4 +1,5 @@
 using System;
+using Script;
 using Script.So.Events;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class TEST_KNCBK : MonoBehaviour {
     public float knockback_force;
     
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.name.Equals("Player"))
-            @event.Invoke(knockback_force);
+        var knockback = other.GetComponent<IKnockbackable>();
+        knockback?.KnockBack(transform.position, knockback_force);
     }
 }
