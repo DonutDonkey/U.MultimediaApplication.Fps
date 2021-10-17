@@ -5,14 +5,14 @@ using UnityEngine;
 namespace Script.So.Events {
     [CreateAssetMenu(fileName = "New General Event", menuName = "Events/General Event")]
     public class GeneralEvent : ScriptableObject {
-        private readonly List<GeneralEventListener> listeners = new List<GeneralEventListener>();
+        private readonly HashSet<IListener> listeners = new HashSet<IListener>();
 
         public void Raise() {
-            for (var i = listeners.Count - 1; i >= 0; i--)
-                listeners[i].OnEventRaised();
+            foreach(var l in listeners)
+                l?.OnEventRaised();
         }
 
-        public void RegisterListener(GeneralEventListener listener) => listeners?.Add(listener);
-        public void UnregisterListener(GeneralEventListener listener) => listeners?.Remove(listener);
+        public void RegisterListener(IListener listener) => listeners?.Add(listener);
+        public void UnregisterListener(IListener listener) => listeners?.Remove(listener);
     }
 }

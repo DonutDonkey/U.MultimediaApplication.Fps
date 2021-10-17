@@ -3,32 +3,54 @@ using UnityEngine;
 namespace Script.Mono {
     public class Controller_Player : MonoBehaviour, IKnockbackable {
         //TODO: Make it rigid body so forces of knockback can be applied, also implement bunny hopping
-        private CharacterController char_ctrl;
-        private Helper_ControllerPlayer pctrl_helper;
-
+        [SerializeField] private CharacterController plr_ctrl;
+        [SerializeField] private Transform plr_body;
+        [SerializeField] private Camera main_cam;
+        
+        private Helper_ControllerPlayer plr_ctrl_helper;
         private Vector3 velocity;
 
         private float speed = 10f;
-        private float jump_strength = 10f;
-        
-        private void Awake() {
-            char_ctrl = GetComponent<CharacterController>();
-            pctrl_helper = new Helper_ControllerPlayer(char_ctrl);
-        }
+        private float speed_sprint = 20f; // no cod, think doom sprint?
+        private float jump_strength = 2f;
+        private float cam_x_axis_rotation = 0f;
+
+        private float knockback_counter = 0f;
+        private void Awake() => plr_ctrl_helper = new Helper_ControllerPlayer(plr_ctrl);
+        private void Start() => Cursor.lockState = CursorLockMode.Locked;
 
         private void Update() {
-            Debug.Log(char_ctrl.isGrounded);
-            var motion = pctrl_helper.GetMotion();
+            // Mouse
+            cam_x_axis_rotation -= plr_ctrl_helper.GetMouseY();
+            cam_x_axis_rotation = Mathf.Clamp(cam_x_axis_rotation, -90f, 90f);
+            
+            main_cam.transform.localRotation = Quaternion.Euler(cam_x_axis_rotation, 0f, 0f);
+            transform.Rotate(Vector3.up * plr_ctrl_helper.GetMouseX());
+            
+            // Movement
+            
+            var motion = plr_ctrl_helper.GetMotion();
 
-            velocity.y = pctrl_helper.GetVelocity(velocity);
-            velocity.y = pctrl_helper.GetAirVelocity(velocity, jump_strength);
+            velocity.y = plr_ctrl_helper.GetVelocity(velocity);
+            velocity.y = plr_ctrl_helper.GetAirVelocity(velocity, jump_strength);
+            
+            plr_ctrl.Move(motion * speed * Time.deltaTime);
 
-            char_ctrl.Move(motion * (speed * Time.deltaTime));
-            char_ctrl.Move(velocity * Time.deltaTime);
+            knockback_counter -= knockback_counter >=0 ? Time.deltaTime : 0;
+            //Also check if hit the wall or something simmilair? but gravity should do the trick
+            if (knockback_counter <= 0 && Physics.CheckSphere(transform.position, 0.4f, LayerMask.GetMask("Environment"))) {
+                velocity.x = 0f;
+                velocity.z = 0f;
+            }
+
+            plr_ctrl.Move(velocity * Time.deltaTime);
         }
 
         public void KnockBack(float force) {
-            velocity = -char_ctrl.transform.forward * force;
+            knockback_counter = 0.5f;
+            // direction is this transform - other transform for later
+            velocity = -plr_ctrl.transform.forward * force;
+            velocity.y = force;
         }
     }
 }

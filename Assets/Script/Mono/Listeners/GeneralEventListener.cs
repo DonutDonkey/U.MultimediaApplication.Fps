@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace Script.Mono.Listeners {
-    public class GeneralEventListener : MonoBehaviour {
+    public class GeneralEventListener : MonoBehaviour, IListener {
         [SerializeField] private GeneralEvent g_event;
         [SerializeField] private UnityEvent response;
 
