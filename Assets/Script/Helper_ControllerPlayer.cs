@@ -5,6 +5,7 @@ namespace Script {
         private CharacterController char_ctrl;
         
         public Helper_ControllerPlayer(CharacterController charCtrl) => char_ctrl = charCtrl;
+        public Helper_ControllerPlayer() { }
 
         public Vector3 GetMotion() =>
             char_ctrl.transform.right * GetHorizontalMovement() +
