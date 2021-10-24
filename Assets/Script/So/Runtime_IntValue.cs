@@ -30,5 +30,7 @@ namespace Script.So {
         
         public void OnBeforeSerialize() { }
         public void OnAfterDeserialize() => runtime_value = initial_value;
+
+        public void Decrease(int in_val) => runtime_value -= in_val;
     }
 }

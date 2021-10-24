@@ -7,7 +7,7 @@ namespace Script.So.Events {
     public class GeneralEvent : ScriptableObject {
         private readonly HashSet<IListener> listeners = new HashSet<IListener>();
 
-        public void Raise() {
+        public void Invoke() {
             foreach(var l in listeners)
                 l?.OnEventRaised();
         }
