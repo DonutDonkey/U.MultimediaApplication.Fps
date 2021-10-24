@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97805720c0b4b73824cba5ea2693351, type: 3}
+  m_Name: New Player Container
+  m_EditorClassIdentifier: 
+  player_health: {fileID: 11400000, guid: b67d8f87541e430448a87160528d8cb8, type: 2}
+  player_armor: {fileID: 11400000, guid: c76fc6acbc5dbb34391000db63f70565, type: 2}
+  player_ammo_1: {fileID: 11400000, guid: 990d9c7c70fb4a540b911036c8fe8bc1, type: 2}
+  player_ammo_2: {fileID: 11400000, guid: 783dfc09380bf4a4ba10d06e7cf1e374, type: 2}
+  player_ammo_3: {fileID: 11400000, guid: 666c7411864170f4b817421d92b4ad1c, type: 2}

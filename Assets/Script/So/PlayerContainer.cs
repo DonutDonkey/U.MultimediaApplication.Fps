@@ -3,29 +3,21 @@ using UnityEngine;
 namespace Script.So {
     [CreateAssetMenu(fileName = "New Player Container", menuName = "Containers/Player Container")]
     public class PlayerContainer : SingletonScriptableObj<PlayerContainer>, ISerializationCallbackReceiver {
-        [SerializeField] private IntValue player_health;
-        [SerializeField] private IntValue player_armor;
+        [SerializeField] private Runtime_IntValue player_health;
+        [SerializeField] private Runtime_IntValue player_armor;
         
         // Just hold runtime ref to weapon SO's LUL
 
-        [SerializeField] private IntValue player_ammo_1;
-        [SerializeField] private IntValue player_ammo_2;
-        [SerializeField] private IntValue player_ammo_3;
-
-        //Custom calls for serialization, used for dicitonaries, custom types etc, using so all run values can only be changed at runtime
-        public void OnBeforeSerialize() {
-            player_health.value = 0;
-            player_armor.value = 0;
-            player_ammo_1.value = 0;
-            player_ammo_2.value = 0;
-            player_ammo_3.value = 0;
-        }
-
-        public void OnAfterDeserialize() { }
-
+        [SerializeField] private Runtime_IntValue player_ammo_1;
+        [SerializeField] private Runtime_IntValue player_ammo_2;
+        [SerializeField] private Runtime_IntValue player_ammo_3;
+        
         public void SetDefaultValues() {
             //Event?
         }
+        //Custom calls for serialization, used for dicitonaries, custom types etc, using so all run values can only be changed at runtime
+        public void OnBeforeSerialize() { }
+        public void OnAfterDeserialize() { }
     }
 
     [System.Serializable]

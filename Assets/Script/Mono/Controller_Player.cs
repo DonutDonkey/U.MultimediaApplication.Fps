@@ -9,12 +9,11 @@ namespace Script.Mono {
         private Vector3 velocity;
 
         private float speed = 10f;
-        private float speed_sprint = 20f; // no cod, think doom sprint?
         private float jump_strength = 2f;
 
         private float knockback_counter = 0f;
         private void Awake() => plr_ctrl_helper = new Helper_ControllerPlayer(plr_ctrl);
-        private void Start() => Cursor.lockState = CursorLockMode.Locked;
+        private void Start() => Cursor.lockState = CursorLockMode.Locked; //TODO : fix
 
         private void Update() {
             var motion = plr_ctrl_helper.GetMotion();

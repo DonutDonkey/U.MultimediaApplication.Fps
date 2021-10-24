@@ -1,9 +1,10 @@
-using System;
 using Script;
 using Script.So.Events;
 using UnityEngine;
 
 public class TEST_KNCBK : MonoBehaviour {
+    [IdAttribute] public string id;
+    
     public E_Float @event;
     public float knockback_force;
     
