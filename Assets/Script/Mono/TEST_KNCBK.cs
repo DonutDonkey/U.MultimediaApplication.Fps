@@ -8,6 +8,7 @@ public class TEST_KNCBK : MonoBehaviour {
 
     public GeneralEvent shit;
     public E_Int dmg;
+    public E_Transform e_trn;
     private void OnTriggerEnter(Collider other) {
         if (!other.gameObject.CompareTag("Player")) return;
         
@@ -16,5 +17,6 @@ public class TEST_KNCBK : MonoBehaviour {
         
         shit.Invoke();
         dmg.Invoke((int)knockback_force);
+        e_trn.Invoke(transform);
     }
 }

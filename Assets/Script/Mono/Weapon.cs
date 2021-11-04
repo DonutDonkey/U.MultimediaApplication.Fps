@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Script.Mono.Listeners;
 using Script.So;
 using Script.So.Events;
@@ -35,13 +36,12 @@ namespace Script.Mono {
         }
 
         private void OnEnable() {
-            switching = false;
             GetComponent<Animator>().Play("Selected");
             l_switch_weapon.OnEnable(Switch);
+            switching = false;
         }
 
         private void OnDisable() => l_switch_weapon.OnDisable();
-
         private void Update() {
             cooldown += Time.deltaTime;
             
