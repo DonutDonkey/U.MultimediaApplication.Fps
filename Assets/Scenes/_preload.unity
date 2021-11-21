@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0ffa120a4d4a0dad975ca5410c6ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  game_event: {fileID: 11400000, guid: 885eb40729c08324b8113bf5b6589c4a, type: 2}
+  event: {fileID: 11400000, guid: 885eb40729c08324b8113bf5b6589c4a, type: 2}
   unity_event_response:
     m_PersistentCalls:
       m_Calls:
