@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ff46d60646e4e14b15783318868fb41, type: 3}
-  m_Name: T_weapon1
+  m_Name: T_weapon3
   m_EditorClassIdentifier: 
-  id: 'Weapon : 1'
-  damage: 10
-  cooldown: 1
+  id: 'Weapon : 3'
+  damage: 5
+  cooldown: 0.1
   pellets: 1
-  accuracy: 1
-  max_distance: 1
+  accuracy: 0.9
+  max_distance: 100
   is_projectile: 0
   projectile_prefab: {fileID: 0}

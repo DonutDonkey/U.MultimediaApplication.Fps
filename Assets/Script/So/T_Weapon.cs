@@ -6,7 +6,10 @@ namespace Script.So {
         public string id;
         public int damage;
         public float cooldown;
-        public float accuracy;
+        public int pellets;
+        [Range(0.9f, 1)] public float accuracy;
+
+        public int max_distance;
         
         [Header("Projectile options")]
         public bool is_projectile;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Script.Mono.Listeners;
 using Script.So;
 using Script.So.Events;
@@ -56,16 +57,62 @@ namespace Script.Mono {
                 e_swtich_weapon.Invoke(World_Constants.ID_WEAPON_4);
         }
 
+        public GameObject debug_obj;
+        public List<Vector3> debug_transformy;
+        public GeneralEvent e_xd;
         public void Hitscan() {
             Debug.Log($"{weapon_data.id} HITSCAN");
+            e_xd.Invoke();
             cooldown = 0.0f;
-        }
+            
+            for (var i = 0; i < weapon_data.pellets; i++) {
+                var x_spread = UnityEngine.Random.Range(-1*(1 - weapon_data.accuracy), 1*(1 - weapon_data.accuracy));
+                var y_spread = UnityEngine.Random.Range(-1*(1 - weapon_data.accuracy), 1*(1 - weapon_data.accuracy));
+                
+                var target = Camera.main.transform.forward;
+                target.x += x_spread;
+                target.y += y_spread;
 
+                if (!Physics.Raycast(Camera.main.transform.position, target, out RaycastHit hit,
+                    weapon_data.max_distance)) continue;
+                
+                Debug.Log($"HIT : {hit.transform.gameObject.name}");
+                debug_transformy.Add(hit.point);
+            }
+        }
+        
         public void Projectile() {
             Debug.Log($"{weapon_data.id} Projectile");
             cooldown = 0.0f;
         }
 
         public void AnimationFinished() => gameObject.SetActive(false);
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos() {
+            // var target = Camera.main.transform.forward;
+            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
+            // target.x += 0.1f;
+            // target.y += -0.1f;
+            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
+            // target.x += -0.25f;
+            // target.y += 0.25f;
+            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
+            // target.x += 0.5f;
+            // target.y += 0.5f;
+            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
+            // target.x += -0.75f;
+            // target.y += 0.75f;
+            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
+            // target.x += 1;
+            // target.y += -1;
+            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
+            Gizmos.color = Color.red;
+
+            foreach (var dt in debug_transformy) {
+                Gizmos.DrawSphere(dt, 0.2f);
+            }
+        }
+#endif
     }
 }

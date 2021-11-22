@@ -25,7 +25,8 @@ namespace Script.Mono {
 
         IEnumerator Switch(GameObject curr_wep, GameObject nxt_wep) {
             yield return new WaitUntil(() => !curr_wep.activeSelf);
-            curr_wep.SetActive(false);
+            
+            // curr_wep.SetActive(false);
             nxt_wep.SetActive(true);
         }
     }
