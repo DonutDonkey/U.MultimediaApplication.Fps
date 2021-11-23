@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Script {
     public class IdAttribute : PropertyAttribute { }
@@ -11,8 +13,13 @@ namespace Script {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
             GUI.enabled = false;
 
+            Random rnd = new Random();
+            string mono_id = $"{DateTime.Now}:MONO";
+            string rand = new string(mono_id.ToCharArray().
+                OrderBy(s => (rnd.Next(2) % 2) == 0).ToArray());
+            
             if (string.IsNullOrEmpty(property.stringValue))
-                property.stringValue = $"{Guid.NewGuid()}";
+                property.stringValue = $"{DateTime.Now} : MONO";
             
             GUI.enabled = true;
         }

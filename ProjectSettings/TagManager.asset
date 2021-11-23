@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ENEMY00
+  - ENEMY01
+  - ENEMY02
+  - ENEMY03
+  - ENEMY04
+  - ENEMY05
+  - ENEMY06
+  - ENEMY07
+  - ENEMY08
+  - ENEMY09
+  - Pickup
+  - Environment
   layers:
   - Default
   - TransparentFX

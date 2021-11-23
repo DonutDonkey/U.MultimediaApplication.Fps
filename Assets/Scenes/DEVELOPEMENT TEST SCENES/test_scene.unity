@@ -804,7 +804,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 0.94649446, y: 1}
+    m_SensorSize: {x: 1.9649446, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1670,6 +1670,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 709626068}
+  - component: {fileID: 709626076}
   - component: {fileID: 709626067}
   - component: {fileID: 709626069}
   - component: {fileID: 709626071}
@@ -1916,6 +1917,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &709626076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709626066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f291ce613e4229b61250c09b47e381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  r_health: {fileID: 11400000, guid: b67d8f87541e430448a87160528d8cb8, type: 2}
+  r_armor: {fileID: 11400000, guid: c76fc6acbc5dbb34391000db63f70565, type: 2}
 --- !u!1 &746040455
 GameObject:
   m_ObjectHideFlags: 0
