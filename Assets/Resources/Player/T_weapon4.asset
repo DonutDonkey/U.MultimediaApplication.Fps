@@ -9,6 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 285a97c039b5469296026cf0c3781b37, type: 3}
-  m_Name: knockback 1
+  m_Script: {fileID: 11500000, guid: 0ff46d60646e4e14b15783318868fb41, type: 3}
+  m_Name: T_weapon4
   m_EditorClassIdentifier: 
+  id: 'Weapon : 4'
+  damage: 160
+  cooldown: 1.05
+  pellets: 0
+  accuracy: 1
+  max_distance: 1000
+  is_projectile: 1
+  projectile_prefab: {fileID: 0}

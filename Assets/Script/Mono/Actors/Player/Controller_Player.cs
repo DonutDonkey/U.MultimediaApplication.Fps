@@ -1,10 +1,14 @@
+using Script.So.Events;
 using UnityEngine;
 
-namespace Script.Mono {
+namespace Script.Mono.Actors.Player {
     public class Controller_Player : MonoBehaviour, IKnockbackable {
-        //TODO: Make it rigid body so forces of knockback can be applied, also implement bunny hopping
+        [Header("Component refferences")]
         [SerializeField] private CharacterController plr_ctrl;
 
+        [Header("Events")]
+        [SerializeField] private E_Transform e_knockback;
+        
         private Helper_ControllerPlayer plr_ctrl_helper;
         private Vector3 velocity;
 

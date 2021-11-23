@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecba77faf8a447a786a9a287358c4530, type: 3}
-  m_Name: E_blowback
+  m_Script: {fileID: 11500000, guid: d7e50e7278fd4068be0e470a6c0c8d71, type: 3}
+  m_Name: E_player_remove_armor
   m_EditorClassIdentifier: 

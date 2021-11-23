@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Script.Mono.Listeners;
 using Script.So.Events;
@@ -11,13 +10,13 @@ namespace Script.Mono.UI {
         [SerializeField] private Transform t_player;
 
         [Header("Listeners")]
-        [SerializeField] private CodeListener<Transform, Event<Transform>> l_ui_hurt_indicator;
+        [SerializeField] private CodeListener<Transform, Event<Transform>> l_player_dmgSource;
 
         private float timer_enabled;
         private bool is_enabled;
 
-        private void OnEnable() => l_ui_hurt_indicator.OnEnable(HurtIndicator);
-        private void OnDisable() => l_ui_hurt_indicator.OnDisable();
+        private void OnEnable() => l_player_dmgSource.OnEnable(HurtIndicator);
+        private void OnDisable() => l_player_dmgSource.OnDisable();
 
         private void Update() {
             timer_enabled += Time.deltaTime;

@@ -26,6 +26,6 @@ namespace Script.Mono.Actors {
             // velocity.y = force > 10f ? force : velocity.y;
         }
 
-        public void TakeDamage(int in_value) => r_health -= in_value;
+        public void TakeDamage(int in_value, Transform in_source) => r_health -= in_value;
     }
 }

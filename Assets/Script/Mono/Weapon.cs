@@ -11,8 +11,10 @@ namespace Script.Mono {
         [SerializeField] private T_Weapon weapon_data;
         
         [Header("Event management")]
-        [SerializeField] private E_String e_swtich_weapon;
-        [SerializeField] private CodeListener<string, E_String> l_switch_weapon;
+        [SerializeField] private GeneralEvent e_weapon_blowback;
+        
+        [SerializeField] private E_String e_weapon_switch;
+        [SerializeField] private CodeListener<string, E_String> l_weapon_switch;
 
         private float cooldown = 0.0f;
         private Action attack;
@@ -37,32 +39,31 @@ namespace Script.Mono {
 
         private void OnEnable() {
             GetComponent<Animator>().Play("Selected");
-            l_switch_weapon.OnEnable(Switch);
+            l_weapon_switch.OnEnable(Switch);
             switching = false;
         }
 
-        private void OnDisable() => l_switch_weapon.OnDisable();
+        private void OnDisable() => l_weapon_switch.OnDisable();
         private void Update() {
             cooldown += Time.deltaTime;
             
             if(Input.GetButton(World_Constants.INPUT_ATTACK) && cooldown > weapon_data.cooldown)
                 attack.Invoke();
             if(Input.GetKeyDown(KeyCode.Alpha1))
-                e_swtich_weapon.Invoke(World_Constants.ID_WEAPON_1);            
+                e_weapon_switch.Invoke(World_Constants.ID_WEAPON_1);            
             if(Input.GetKeyDown(KeyCode.Alpha2))
-                e_swtich_weapon.Invoke(World_Constants.ID_WEAPON_2);
+                e_weapon_switch.Invoke(World_Constants.ID_WEAPON_2);
             if(Input.GetKeyDown(KeyCode.Alpha3))
-                e_swtich_weapon.Invoke(World_Constants.ID_WEAPON_3);
+                e_weapon_switch.Invoke(World_Constants.ID_WEAPON_3);
             if(Input.GetKeyDown(KeyCode.Alpha4))
-                e_swtich_weapon.Invoke(World_Constants.ID_WEAPON_4);
+                e_weapon_switch.Invoke(World_Constants.ID_WEAPON_4);
         }
-
-        public GameObject debug_obj;
+#if UNITY_EDITOR
         public List<Vector3> debug_transformy;
-        public GeneralEvent e_xd;
+#endif
         public void Hitscan() {
             Debug.Log($"{weapon_data.id} HITSCAN");
-            e_xd.Invoke();
+            e_weapon_blowback.Invoke();
             cooldown = 0.0f;
             
             for (var i = 0; i < weapon_data.pellets; i++) {
@@ -77,7 +78,9 @@ namespace Script.Mono {
                     weapon_data.max_distance)) continue;
                 
                 Debug.Log($"HIT : {hit.transform.gameObject.name}");
+#if UNITY_EDITOR
                 debug_transformy.Add(hit.point);
+#endif
             }
         }
         
@@ -90,23 +93,6 @@ namespace Script.Mono {
 
 #if UNITY_EDITOR
         private void OnDrawGizmos() {
-            // var target = Camera.main.transform.forward;
-            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
-            // target.x += 0.1f;
-            // target.y += -0.1f;
-            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
-            // target.x += -0.25f;
-            // target.y += 0.25f;
-            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
-            // target.x += 0.5f;
-            // target.y += 0.5f;
-            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
-            // target.x += -0.75f;
-            // target.y += 0.75f;
-            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
-            // target.x += 1;
-            // target.y += -1;
-            // Debug.DrawRay(Camera.main.transform.position, target * 1000, Color.red);
             Gizmos.color = Color.red;
 
             foreach (var dt in debug_transformy) {
