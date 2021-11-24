@@ -9,6 +9,7 @@ namespace Script.Mono {
     public class Weapon : MonoBehaviour, IWeapon {
         [Header("Weapon data")]
         [SerializeField] private T_Weapon weapon_data;
+        [SerializeField] private ParticleSystem hitscan_particle_impact;
         
         [Header("Event management")]
         [SerializeField] private GeneralEvent e_weapon_blowback;
@@ -47,8 +48,11 @@ namespace Script.Mono {
         private void Update() {
             cooldown += Time.deltaTime;
             
+            //Check ammo count
             if(Input.GetButton(World_Constants.INPUT_ATTACK) && cooldown > weapon_data.cooldown)
                 attack.Invoke();
+            
+            
             if(Input.GetKeyDown(KeyCode.Alpha1))
                 e_weapon_switch.Invoke(World_Constants.ID_WEAPON_1);            
             if(Input.GetKeyDown(KeyCode.Alpha2))
@@ -73,9 +77,15 @@ namespace Script.Mono {
                 var target = Camera.main.transform.forward;
                 target.x += x_spread;
                 target.y += y_spread;
-
+                
+                // Some bit shifting shit https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
+                int layerMask = 1 << 8;
+                layerMask = ~layerMask;
+                
                 if (!Physics.Raycast(Camera.main.transform.position, target, out RaycastHit hit,
-                    weapon_data.max_distance)) continue;
+                    weapon_data.max_distance, layerMask)) continue;
+
+                Instantiate(hitscan_particle_impact, hit.point, hitscan_particle_impact.transform.rotation);
                 
                 Debug.Log($"HIT : {hit.transform.gameObject.name}");
 #if UNITY_EDITOR
@@ -85,8 +95,17 @@ namespace Script.Mono {
         }
         
         public void Projectile() {
-            Debug.Log($"{weapon_data.id} Projectile");
+            Debug.Log($"{weapon_data.id} : Weapon.Projectile()");
+            e_weapon_blowback.Invoke();
             cooldown = 0.0f;
+
+            var proj_pos = Camera.main.transform.position;
+            proj_pos.z += 1;
+            
+            var projectile = Instantiate(weapon_data.projectile_prefab, proj_pos,
+                Camera.main.transform.rotation);
+            projectile.GetComponent<Projectile>().PosProjectileActorPosition = transform;
+            projectile.transform.forward = Camera.main.transform.forward;
         }
 
         public void AnimationFinished() => gameObject.SetActive(false);

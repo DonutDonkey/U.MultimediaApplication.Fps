@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 5
   cooldown: 0.1
   pellets: 1
-  accuracy: 0.9
+  accuracy: 0.9425
   max_distance: 100
   is_projectile: 0
   projectile_prefab: {fileID: 0}

@@ -19,9 +19,18 @@ namespace Script.Mono.Actors.Player {
         public bool IsDead() => r_health > 0;
 
         public void TakeDamage(int in_value, Transform in_source) {
+            var dmg_armor = in_value / 2;
+            var dmg_hp = r_armor.runtime_value - dmg_armor >= 0 ? in_value / 2 : in_value - r_armor;
             // IF damage above certain treshold knockback from controller
-            e_player_remove_hp.Invoke(in_value);
+            e_player_remove_hp.Invoke(dmg_hp);
+            
+            e_player_remove_armor.Invoke(dmg_armor);
+            NormalizeRuntimeArmor();
+            
             e_player_dmgSource.Invoke(in_source);
         }
+
+        private void NormalizeRuntimeArmor() =>
+            r_armor.runtime_value = r_armor.runtime_value < 0 ? 0 : r_armor.runtime_value;
     }
 }

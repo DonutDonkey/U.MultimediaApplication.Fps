@@ -12,6 +12,6 @@ public class TEST_KNCBK : MonoBehaviour {
         knockback?.KnockBack(transform.position, knockback_force);
         
         var dmg = other.GetComponent<IDamageable>();
-        dmg?.TakeDamage((int)knockback_force, transform);
+        dmg?.TakeDamage((int)knockback_force, gameObject.transform);
     }
 }
