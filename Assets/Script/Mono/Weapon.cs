@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Script.Mono.Actors.Player;
 using Script.Mono.Listeners;
 using Script.So;
 using Script.So.Events;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Script.Mono {
     public class Weapon : MonoBehaviour, IWeapon {
         [Header("Weapon data")]
         [SerializeField] private T_Weapon weapon_data;
-        [SerializeField] private ParticleSystem hitscan_particle_impact;
+        [SerializeField] private ParticleSystem hitscan_particle_impact_environment;
+        [SerializeField] private ParticleSystem hitscan_particle_impact_enemy;
+        [SerializeField] private Transform projectile_spawn_transform;
         
         [Header("Event management")]
         [SerializeField] private GeneralEvent e_weapon_blowback;
@@ -85,7 +89,13 @@ namespace Script.Mono {
                 if (!Physics.Raycast(Camera.main.transform.position, target, out RaycastHit hit,
                     weapon_data.max_distance, layerMask)) continue;
 
-                Instantiate(hitscan_particle_impact, hit.point, hitscan_particle_impact.transform.rotation);
+                var damageable = hit.transform.gameObject.GetComponent<IDamageable>();
+                damageable?.TakeDamage(weapon_data.damage, GetComponentInParent<Player>().transform);
+                
+                if (hit.transform.gameObject.tag.Contains("ENEMY"))
+                    Instantiate(hitscan_particle_impact_enemy, hit.point, Quaternion.LookRotation(hit.normal));
+                else
+                    Instantiate(hitscan_particle_impact_environment, hit.point, Quaternion.LookRotation(hit.normal));
                 
                 Debug.Log($"HIT : {hit.transform.gameObject.name}");
 #if UNITY_EDITOR
@@ -98,11 +108,8 @@ namespace Script.Mono {
             Debug.Log($"{weapon_data.id} : Weapon.Projectile()");
             e_weapon_blowback.Invoke();
             cooldown = 0.0f;
-
-            var proj_pos = Camera.main.transform.position;
-            proj_pos.z += 1;
             
-            var projectile = Instantiate(weapon_data.projectile_prefab, proj_pos,
+            var projectile = Instantiate(weapon_data.projectile_prefab, projectile_spawn_transform.position,
                 Camera.main.transform.rotation);
             projectile.GetComponent<Projectile>().PosProjectileActorPosition = transform;
             projectile.transform.forward = Camera.main.transform.forward;
