@@ -15,9 +15,9 @@ namespace Script.Mono {
         
         [Header("Projectile data")]
         [SerializeField] private float projectile_speed;
-        [SerializeField] private GameObject projectile_impact_spawn;
         [SerializeField] private TargetType projectile_tag_aware;
         [SerializeField] private TagAction projectile_tag_action;
+        //TODO: add enum for what to spawn if anything
 
         private Rigidbody rb_projectile;
         
@@ -52,9 +52,12 @@ namespace Script.Mono {
                 }
             
             var damagable = other.gameObject.GetComponent<IDamageable>();
-            
             damagable?.TakeDamage(data_weapon.damage, PosProjectileActorPosition);
-            Instantiate(projectile_impact_spawn, transform.position, transform.rotation);
+            
+            var expl = Manager_Pooler.Instance.Pool_explosion.Get();
+            expl.transform.position = gameObject.transform.position;
+            expl.Explode();
+
             _pool.Release(this);
         }
     }

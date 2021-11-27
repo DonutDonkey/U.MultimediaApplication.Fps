@@ -51,8 +51,7 @@ namespace Script.Mono {
                         false, 
                         10),
                     _ => throw new ArgumentOutOfRangeException()
-                };
-            }
+                }; }
         }
         
         #region PROJECTILE POOL SETTINGS
@@ -134,31 +133,37 @@ namespace Script.Mono {
                 e_weapon_audio.Invoke(weapon_data.audio_fire);
             e_weapon_blowback.Invoke();
             cooldown = 0.0f;
-            
+
             for (var i = 0; i < weapon_data.pellets; i++) {
-                var x_spread = UnityEngine.Random.Range(-1*(1 - weapon_data.accuracy), 1*(1 - weapon_data.accuracy));
-                var y_spread = UnityEngine.Random.Range(-1*(1 - weapon_data.accuracy), 1*(1 - weapon_data.accuracy));
-                
+                var x_spread =
+                    UnityEngine.Random.Range(-1 * (1 - weapon_data.accuracy), 1 * (1 - weapon_data.accuracy));
+                var y_spread =
+                    UnityEngine.Random.Range(-1 * (1 - weapon_data.accuracy), 1 * (1 - weapon_data.accuracy));
+
                 var target = Camera.main.transform.forward;
                 target.x += x_spread;
                 target.y += y_spread;
-                
+
                 // Some bit shifting shit https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
                 int layerMask = 1 << 8;
                 layerMask = ~layerMask;
-                
+
                 if (!Physics.Raycast(Camera.main.transform.position, target, out RaycastHit hit,
                     weapon_data.max_distance, layerMask)) continue;
 
                 var damageable = hit.transform.gameObject.GetComponent<IDamageable>();
                 damageable?.TakeDamage(weapon_data.damage, GetComponentInParent<Player>().transform);
-                
-                if (hit.transform.gameObject.tag.Contains("ENEMY"))
-                    Instantiate(hitscan_particle_impact_enemy, hit.point, Quaternion.LookRotation(hit.normal));
-                else {
-                    Instantiate(hitscan_particle_impact_environment, hit.point, Quaternion.LookRotation(hit.normal));
+
+                if (hit.transform.gameObject.tag.Contains("ENEMY")) {
+                    var hs_e = Manager_Pooler.Instance.Pool_hitscan_blood.Get();
+                    hs_e.transform.position = hit.point;
+                    hs_e.transform.rotation = Quaternion.LookRotation(hit.normal);
+                } else {
+                    var hs_b = Manager_Pooler.Instance.Pool_hitscan_env.Get();
+                    hs_b.transform.position = hit.point;
+                    hs_b.transform.rotation = Quaternion.LookRotation(hit.normal);
+
                     var decal = Instantiate(hitscan_decal, hit.point, Quaternion.LookRotation(hit.normal));
-                    // decal.transform.LookAt(hit.point + hit.normal);
                 }
 
                 Debug.Log($"HIT : {hit.transform.gameObject.name}");

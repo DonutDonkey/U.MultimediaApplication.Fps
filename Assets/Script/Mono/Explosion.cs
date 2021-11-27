@@ -9,9 +9,10 @@ namespace Script.Mono {
         [SerializeField] private int max_dmg = 100;
         [SerializeField] private float max_range = 10f;
         [SerializeField, Range(1,5)] private int knockback_scale_factor;
-
-        private void OnEnable() {
-            Instantiate(self_particle, transform.position, transform.rotation);
+        
+        public void Explode() {
+            var ep = Manager_Pooler.Instance.Pool_explosion_particle.Get();
+            ep.transform.position = transform.position;
             
             Collider[] colliders_hit = new Collider[10];
             
@@ -29,6 +30,7 @@ namespace Script.Mono {
                 damageable?.TakeDamage(out_damage, transform);
                 kickbackable?.KnockBack(transform.position, out_damage/knockback_scale_factor);
             }
+            Manager_Pooler.Instance.Pool_explosion.Release(this);
         }
         
         private void OnDrawGizmos() {

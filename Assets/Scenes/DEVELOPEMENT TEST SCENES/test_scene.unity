@@ -3353,7 +3353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1285829854
 Transform:
   m_ObjectHideFlags: 0
@@ -4136,7 +4136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1764023611
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4245,6 +4245,57 @@ Transform:
   - {fileID: 161964692}
   m_Father: {fileID: 0}
   m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1816396016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1816396018}
+  - component: {fileID: 1816396017}
+  m_Layer: 0
+  m_Name: POOL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1816396017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816396016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8586be17553e4407b2ff99760e0b46c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab_explosion: {fileID: 5766747044526222214, guid: 6e71e0ad333ba00488b5b5a1e3df5e76, type: 3}
+  prefab_explosion_pt: 0
+  prefab_explosion_particle: {fileID: 6762897286594037543, guid: 68859d19be372954388bc1f6da735726, type: 3}
+  prefab_explosion_particle_pt: 0
+  weapon_hitscan_environment: {fileID: 6762897286594037543, guid: 7ea17d2e3c128fe47b166045d6868f3c, type: 3}
+  weapon_hitscan_environment_pt: 0
+  weapon_hitscan_blood: {fileID: 6762897286594037543, guid: f87e859390924194eb3de98c4533048a, type: 3}
+  weapon_hitscan_blood_pt: 0
+--- !u!4 &1816396018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816396016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.5, y: 2.300825, z: -26.87}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1827226293
 GameObject:
@@ -5535,6 +5586,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EXPLOSION
       objectReference: {fileID: 0}
+    - target: {fileID: 5766747044526222213, guid: 6e71e0ad333ba00488b5b5a1e3df5e76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5766747044526222214, guid: 6e71e0ad333ba00488b5b5a1e3df5e76, type: 3}
       propertyPath: knockback_scale_factor
       value: 1
@@ -5862,6 +5917,10 @@ PrefabInstance:
     - target: {fileID: 6762897286594037537, guid: 68859d19be372954388bc1f6da735726, type: 3}
       propertyPath: m_Name
       value: PARTICLE
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762897286594037537, guid: 68859d19be372954388bc1f6da735726, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6762897286594037540, guid: 68859d19be372954388bc1f6da735726, type: 3}
       propertyPath: m_RootOrder
