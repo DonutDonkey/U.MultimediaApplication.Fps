@@ -1,4 +1,4 @@
-namespace Script.Mono {
+namespace Script {
     interface IWeapon {
         void Hitscan();
         void Projectile();

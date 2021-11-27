@@ -4,8 +4,9 @@ using Script.Mono.Actors.Player;
 using Script.Mono.Listeners;
 using Script.So;
 using Script.So.Events;
-using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Script.Mono {
     public class Weapon : MonoBehaviour, IWeapon {
@@ -13,18 +14,72 @@ namespace Script.Mono {
         [SerializeField] private T_Weapon weapon_data;
         [SerializeField] private ParticleSystem hitscan_particle_impact_environment;
         [SerializeField] private ParticleSystem hitscan_particle_impact_enemy;
-        [SerializeField] private Transform projectile_spawn_transform;
-        
+
         [Header("Event management")]
         [SerializeField] private GeneralEvent e_weapon_blowback;
-        
+
+        [SerializeField] private E_AudioClip e_weapon_audio;
         [SerializeField] private E_String e_weapon_switch;
         [SerializeField] private CodeListener<string, E_String> l_weapon_switch;
 
+        [SerializeField] private GameObject hitscan_decal;
         private float cooldown = 0.0f;
         private Action attack;
 
         private bool switching = false;
+
+        [Header("Pooling")]
+        public PoolType pool_type;
+        public enum PoolType { Stack, LinkedList }
+       
+        private IObjectPool<Projectile> pool_projectile;
+        public IObjectPool<Projectile> PoolProjectile { 
+            get { return pool_projectile ??= pool_type switch {
+                    PoolType.Stack => new ObjectPool<Projectile>(
+                        Pool_Projectile_CreateFunc,
+                        Pool_Projectile_OnGet, 
+                        Pool_Projectile_OnRelease, 
+                        Pool_Projectile_OnDestroy, 
+                        false, 
+                        5, 
+                        10),
+                    PoolType.LinkedList => new LinkedPool<Projectile>(
+                        Pool_Projectile_CreateFunc, 
+                        Pool_Projectile_OnGet,
+                        Pool_Projectile_OnRelease, 
+                        Pool_Projectile_OnDestroy, 
+                        false, 
+                        10),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+            }
+        }
+        
+        #region PROJECTILE POOL SETTINGS
+        
+        private Projectile Pool_Projectile_CreateFunc() {
+            var p = Instantiate(weapon_data.projectile_prefab);
+            
+            p.PosProjectileActorPosition = transform;
+            p.Pool = PoolProjectile;
+            
+            return p;
+        }
+        private void Pool_Projectile_OnGet(Projectile in_projectile) {
+            var position = Camera.main.transform.position;
+            position.z += 1;
+            
+            in_projectile.transform.position = position;
+            in_projectile.transform.rotation = Camera.main.transform.rotation;
+            in_projectile.transform.forward = Camera.main.transform.forward;
+            
+            in_projectile.gameObject.SetActive(true);
+        }
+
+        private void Pool_Projectile_OnRelease(Projectile in_projectile) => in_projectile.gameObject.SetActive(false);
+        private void Pool_Projectile_OnDestroy(Projectile in_projectile) => Destroy(in_projectile.gameObject);
+        
+        #endregion
         
         private void Awake() {
             if (weapon_data.is_projectile)
@@ -71,6 +126,12 @@ namespace Script.Mono {
 #endif
         public void Hitscan() {
             Debug.Log($"{weapon_data.id} HITSCAN");
+           
+            GetComponent<Animator>().Play("Attack");
+            
+            // TODO: generate based on cam.main transform
+            if (weapon_data.audio_fire != null) 
+                e_weapon_audio.Invoke(weapon_data.audio_fire);
             e_weapon_blowback.Invoke();
             cooldown = 0.0f;
             
@@ -94,25 +155,32 @@ namespace Script.Mono {
                 
                 if (hit.transform.gameObject.tag.Contains("ENEMY"))
                     Instantiate(hitscan_particle_impact_enemy, hit.point, Quaternion.LookRotation(hit.normal));
-                else
+                else {
                     Instantiate(hitscan_particle_impact_environment, hit.point, Quaternion.LookRotation(hit.normal));
-                
+                    var decal = Instantiate(hitscan_decal, hit.point, Quaternion.LookRotation(hit.normal));
+                    // decal.transform.LookAt(hit.point + hit.normal);
+                }
+
                 Debug.Log($"HIT : {hit.transform.gameObject.name}");
 #if UNITY_EDITOR
                 debug_transformy.Add(hit.point);
 #endif
+                weapon_data.UseAmmo();
             }
         }
         
         public void Projectile() {
             Debug.Log($"{weapon_data.id} : Weapon.Projectile()");
+            GetComponent<Animator>().Play("Attack");
+            
+            if (weapon_data.audio_fire != null) 
+                e_weapon_audio.Invoke(weapon_data.audio_fire);
             e_weapon_blowback.Invoke();
+            
             cooldown = 0.0f;
             
-            var projectile = Instantiate(weapon_data.projectile_prefab, projectile_spawn_transform.position,
-                Camera.main.transform.rotation);
-            projectile.GetComponent<Projectile>().PosProjectileActorPosition = transform;
-            projectile.transform.forward = Camera.main.transform.forward;
+            PoolProjectile.Get();
+            weapon_data.UseAmmo();
         }
 
         public void AnimationFinished() => gameObject.SetActive(false);

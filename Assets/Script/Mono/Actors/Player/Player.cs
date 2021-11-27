@@ -12,11 +12,12 @@ namespace Script.Mono.Actors.Player {
         [SerializeField] private E_Int e_player_remove_hp;
         [SerializeField] private E_Int e_player_remove_armor;
         [SerializeField] private E_Transform e_player_dmgSource;
+        [SerializeField] private GeneralEvent e_player_death;
         public Vector3 GetPosition() => this.transform.position;
 
         public Transform GetTransform() => this.gameObject.transform;
 
-        public bool IsDead() => r_health > 0;
+        public bool IsDead() => r_health <= 0;
 
         public void TakeDamage(int in_value, Transform in_source) {
             var dmg_armor = in_value / 2;
@@ -28,6 +29,8 @@ namespace Script.Mono.Actors.Player {
             NormalizeRuntimeArmor();
             
             e_player_dmgSource.Invoke(in_source);
+            
+            if( IsDead() ) e_player_death.Invoke();
         }
 
         private void NormalizeRuntimeArmor() =>
