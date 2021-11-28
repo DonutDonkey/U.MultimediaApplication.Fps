@@ -21,8 +21,7 @@ namespace Script.Mono {
         [SerializeField] private E_AudioClip e_weapon_audio;
         [SerializeField] private E_String e_weapon_switch;
         [SerializeField] private CodeListener<string, E_String> l_weapon_switch;
-
-        [SerializeField] private GameObject hitscan_decal;
+        
         private float cooldown = 0.0f;
         private Action attack;
 
@@ -167,8 +166,10 @@ namespace Script.Mono {
                     var hs_b = Manager_Pooler.Instance.Pool_hitscan_env.Get();
                     hs_b.transform.position = hit.point;
                     hs_b.transform.rotation = Quaternion.LookRotation(hit.normal);
-
-                    var decal = Instantiate(hitscan_decal, hit.point, Quaternion.LookRotation(hit.normal));
+                    
+                    var decal = Manager_Pooler.Instance.Pool_hitscan_decal.Get();
+                    decal.transform.position = hit.point;
+                    decal.transform.rotation = Quaternion.LookRotation(hit.normal);
                 }
 
                 Debug.Log($"HIT : {hit.transform.gameObject.name}");

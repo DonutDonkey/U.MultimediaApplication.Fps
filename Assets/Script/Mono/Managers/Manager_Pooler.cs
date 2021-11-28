@@ -32,7 +32,7 @@ namespace Script.Mono.Managers {
                         in_item => Destroy(in_item.gameObject)
                     ),
                     PoolType.LinkedList => new LinkedPool<Explosion>(
-                        () => Instantiate(prefab_explosion),
+                        () => Instantiate(prefab_explosion, Parent.transform),
                         in_item => in_item.gameObject.SetActive(true),
                         in_item => in_item.gameObject.SetActive(false),
                         in_item => Destroy(in_item.gameObject)
@@ -53,7 +53,7 @@ namespace Script.Mono.Managers {
                     in_item => Destroy(in_item.gameObject)
                 ),                
                 PoolType.LinkedList => new ObjectPool<ParticleSystem>(
-                    () => { var ps = Instantiate(prefab_explosion_particle);
+                    () => { var ps = Instantiate(prefab_explosion_particle, Parent.transform);
                                     var rp = ps.AddComponent<ReturnToPool>();
                                     rp._pool = pool_explosion_particle;
                                     return ps; },
@@ -77,7 +77,7 @@ namespace Script.Mono.Managers {
                     in_item => Destroy(in_item.gameObject)
                 ),                
                 PoolType.LinkedList => new ObjectPool<ParticleSystem>(
-                    () => { var ps = Instantiate(weapon_hitscan_environment);
+                    () => { var ps = Instantiate(weapon_hitscan_environment, Parent.transform);
                                     var rp = ps.AddComponent<ReturnToPool>();
                                     rp._pool = pool_hitscan_env;
                                     return ps; },
@@ -101,7 +101,7 @@ namespace Script.Mono.Managers {
                     in_item => Destroy(in_item.gameObject)
                 ),                
                 PoolType.LinkedList => new ObjectPool<ParticleSystem>(
-                    () => { var ps = Instantiate(weapon_hitscan_blood);
+                    () => { var ps = Instantiate(weapon_hitscan_blood, Parent.transform);
                                     var rp = ps.AddComponent<ReturnToPool>();
                                     rp._pool = pool_hitscan_blood;
                                     return ps; },
@@ -111,6 +111,20 @@ namespace Script.Mono.Managers {
                 ),
                 _ => throw new ArgumentOutOfRangeException()
             }; } 
+        }
+
+        [SerializeField] private Decal prefab_decal;
+        
+        private IObjectPool<Decal> pool_hitscan_decal;
+        public IObjectPool<Decal> Pool_hitscan_decal { get { return pool_hitscan_decal ??= new ObjectPool<Decal>(
+                    () => { return Instantiate(prefab_decal, Parent.transform); },
+                in_item => in_item.gameObject.SetActive(true),
+                    in_item => in_item.gameObject.SetActive(false),
+                    in_item => Destroy(in_item.gameObject),
+                    true,
+                    50,
+                    50
+            ); }
         }
     }
 
