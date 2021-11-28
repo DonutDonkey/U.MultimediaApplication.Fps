@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Script.Mono {
+namespace Script.Mono.Managers {
     public class Manager_Pooler : Singleton<Manager_Pooler> {
         public enum PoolType {
             Stack,

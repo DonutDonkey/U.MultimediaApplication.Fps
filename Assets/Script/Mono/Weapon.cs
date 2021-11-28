@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Script.Mono.Actors.Player;
 using Script.Mono.Listeners;
+using Script.Mono.Managers;
 using Script.So;
 using Script.So.Events;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -27,6 +27,9 @@ namespace Script.Mono {
         private Action attack;
 
         private bool switching = false;
+        
+        private Transform projectile_init_transform;
+        private Transform ProjectileInitTransform => projectile_init_transform ??= GameObject.Find("WEP04 : PROJECTILE : TRANSFORM").transform;
 
         [Header("Pooling")]
         public PoolType pool_type;
@@ -55,22 +58,24 @@ namespace Script.Mono {
         }
         
         #region PROJECTILE POOL SETTINGS
+
+        private Transform _parent;
+        private Transform Parent => _parent ??= GameObject.Find("POOL").transform;
         
         private Projectile Pool_Projectile_CreateFunc() {
-            var p = Instantiate(weapon_data.projectile_prefab);
+            var p = Instantiate(weapon_data.projectile_prefab, ProjectileInitTransform.position, ProjectileInitTransform.rotation, Parent);
+            p.transform.forward = ProjectileInitTransform.forward;
             
             p.PosProjectileActorPosition = transform;
             p.Pool = PoolProjectile;
             
             return p;
         }
+        
         private void Pool_Projectile_OnGet(Projectile in_projectile) {
-            var position = Camera.main.transform.position;
-            position.z += 1;
-            
-            in_projectile.transform.position = position;
-            in_projectile.transform.rotation = Camera.main.transform.rotation;
-            in_projectile.transform.forward = Camera.main.transform.forward;
+            in_projectile.transform.position = ProjectileInitTransform.position;
+            in_projectile.transform.rotation = ProjectileInitTransform.rotation;
+            in_projectile.transform.forward = ProjectileInitTransform.forward;
             
             in_projectile.gameObject.SetActive(true);
         }

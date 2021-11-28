@@ -1,4 +1,3 @@
-using System;
 using Script.So;
 using UnityEngine;
 
@@ -14,9 +13,9 @@ namespace Script.Mono.UI {
 
         [Header("Object refferences")]
         [SerializeField] private SkinnedMeshRenderer mesh_renderer;
-
+        
         private void Update() => mesh_renderer.material = GetPlayerBopMat();
-
+        
         private Material GetPlayerBopMat() {
             if (r_player_hp.runtime_value <= 0)
                 return mat_player_hp_0;

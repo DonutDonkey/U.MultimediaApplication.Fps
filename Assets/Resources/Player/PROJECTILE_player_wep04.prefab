@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4214685334971926462}
   - component: {fileID: 4594080738299135249}
   - component: {fileID: 6030974638142280690}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PROJECTILE_player_wep04
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -115,7 +115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data_weapon: {fileID: 11400000, guid: 0900617a4ad69864cbebc2de856e6821, type: 2}
   projectile_speed: 80
-  projectile_impact_spawn: {fileID: 5766747044526222213, guid: 6e71e0ad333ba00488b5b5a1e3df5e76, type: 3}
   projectile_tag_aware: 1
   projectile_tag_action: 2
 --- !u!54 &1212783330519460342
@@ -133,7 +132,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!199 &4214685334971926462
 ParticleSystemRenderer:
   serializedVersion: 6

@@ -1,5 +1,7 @@
 using UnityEngine;
 
-public class Decal : MonoBehaviour {
+namespace Script.Mono {
+    public class Decal : MonoBehaviour {
 
+    }
 }

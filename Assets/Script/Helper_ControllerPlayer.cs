@@ -20,6 +20,8 @@ namespace Script {
         
         public float GetHorizontalMovement() => Input.GetAxis(World_Constants.AXIS_NAME_HORIZONTAL);
         public float GetVerticalMovement() => Input.GetAxis(World_Constants.AXIS_NAME_VERTICAL);
+        public float GetAnyMovemet() => Input.GetAxis(World_Constants.AXIS_NAME_HORIZONTAL) +
+                                        Input.GetAxis(World_Constants.AXIS_NAME_VERTICAL);
         public float GetMouseX() => Input.GetAxis(World_Constants.MOUSE_AXIS_X) * Time.deltaTime * 100f; //add mouse sensitivity
         public float GetMouseY() => Input.GetAxis(World_Constants.MOUSE_AXIS_Y) * Time.deltaTime * 100f; //add mouse sensitivity
         
