@@ -34,30 +34,30 @@ namespace Script.Mono {
                 Time.deltaTime * rate);
         }
 
-        // private float timer = 0;
-        // private void FixedUpdate() {
-        //     var localPosition = cam_transform.localPosition;
-        //     
-        //     if (plr_ctrl_helper.GetAnyMovemet() != 0 && !plr_ctrl_helper.IsJumping())
-        //         CamMovementTransform(localPosition);
-        //     else
-        //         CamIdleMovement(localPosition);
-        // }
-        //
-        // private float bop_speed = 10f;
-        // private void CamMovementTransform(Vector3 localPosition) {
-        //     timer += Time.deltaTime * bop_speed;
-        //     
-        //     cam_transform.localPosition =  new Vector3(
-        //         localPosition.x, 
-        //         0 + Mathf.Sin(timer) * 0.01f, 
-        //         localPosition.z);
-        // }
-        // private void CamIdleMovement(Vector3 localPosition) {
-        //     timer = 0f;
-        //     cam_transform.localPosition = new Vector3(localPosition.x,
-        //         Mathf.Lerp(localPosition.y, 0, Time.deltaTime * bop_speed),
-        //         localPosition.z);;
-        // }
+        private float timer = 0;
+        private void FixedUpdate() {
+            var localPosition = cam_transform.localPosition;
+            
+            if (plr_ctrl_helper.GetAnyMovemet() && !plr_ctrl_helper.IsJumping())
+                CamMovementTransform(localPosition);
+            else
+                CamIdleMovement(localPosition);
+        }
+        
+        private float bop_speed = 10f;
+        private void CamMovementTransform(Vector3 localPosition) {
+            timer += Time.deltaTime * bop_speed;
+            
+            cam_transform.localPosition =  new Vector3(
+                localPosition.x, 
+                0 + Mathf.Sin(timer) * 0.005f, 
+                localPosition.z);
+        }
+        private void CamIdleMovement(Vector3 localPosition) {
+            timer = 0f;
+            cam_transform.localPosition = new Vector3(localPosition.x,
+                Mathf.Lerp(localPosition.y, 0, Time.deltaTime * bop_speed),
+                localPosition.z);;
+        }
     }
 }
