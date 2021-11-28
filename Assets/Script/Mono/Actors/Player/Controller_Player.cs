@@ -1,13 +1,9 @@
-using Script.So.Events;
 using UnityEngine;
 
 namespace Script.Mono.Actors.Player {
     public class Controller_Player : MonoBehaviour, IKnockbackable {
         [Header("Component refferences")]
         [SerializeField] private CharacterController plr_ctrl;
-
-        [Header("Events")]
-        [SerializeField] private E_Transform e_knockback;
         
         private Helper_ControllerPlayer plr_ctrl_helper;
         private Vector3 velocity;
@@ -24,12 +20,14 @@ namespace Script.Mono.Actors.Player {
 
             velocity.y = plr_ctrl_helper.GetVelocity(velocity);
             velocity.y = plr_ctrl_helper.GetAirVelocity(velocity, jump_strength);
-            
+
             plr_ctrl.Move(motion * speed * Time.deltaTime);
 
-            knockback_counter -= knockback_counter >=0 ? Time.deltaTime : 0;
+
+            knockback_counter -= knockback_counter >= 0 ? Time.deltaTime : 0;
             //Also check if hit the wall or something simmilair? but gravity should do the trick
-            if (knockback_counter <= 0 && Physics.CheckSphere(transform.position, 0.4f, LayerMask.GetMask("Environment"))) {
+            if (knockback_counter <= 0 &&
+                Physics.CheckSphere(transform.position, 0.4f, LayerMask.GetMask("Environment"))) {
                 velocity.x = 0f;
                 velocity.z = 0f;
             }
