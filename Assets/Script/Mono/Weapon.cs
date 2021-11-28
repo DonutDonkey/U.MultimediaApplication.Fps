@@ -12,9 +12,8 @@ namespace Script.Mono {
     public class Weapon : MonoBehaviour, IWeapon {
         [Header("Weapon data")]
         [SerializeField] private T_Weapon weapon_data;
-        [SerializeField] private ParticleSystem hitscan_particle_impact_environment;
-        [SerializeField] private ParticleSystem hitscan_particle_impact_enemy;
-
+        [SerializeField] private AudioClip AClip_empty;
+        
         [Header("Event management")]
         [SerializeField] private GeneralEvent e_weapon_blowback;
 
@@ -113,8 +112,7 @@ namespace Script.Mono {
             //Check ammo count
             if(Input.GetButton(World_Constants.INPUT_ATTACK) && cooldown > weapon_data.cooldown)
                 attack.Invoke();
-            
-            
+
             if(Input.GetKeyDown(KeyCode.Alpha1))
                 e_weapon_switch.Invoke(World_Constants.ID_WEAPON_1);            
             if(Input.GetKeyDown(KeyCode.Alpha2))
@@ -129,12 +127,19 @@ namespace Script.Mono {
 #endif
         public void Hitscan() {
             Debug.Log($"{weapon_data.id} HITSCAN");
-           
+
+            if (weapon_data.ammo != null && weapon_data.ammo.runtime_value <= 0) {
+                e_weapon_audio.Invoke(AClip_empty);
+                cooldown = -1;
+                return;
+            }
+
             GetComponent<Animator>().Play("Attack");
             
             // TODO: generate based on cam.main transform
             if (weapon_data.audio_fire != null) 
                 e_weapon_audio.Invoke(weapon_data.audio_fire);
+            
             e_weapon_blowback.Invoke();
             cooldown = 0.0f;
 
@@ -176,12 +181,20 @@ namespace Script.Mono {
 #if UNITY_EDITOR
                 debug_transformy.Add(hit.point);
 #endif
-                weapon_data.UseAmmo();
+                if(weapon_data.ammo != null)
+                    weapon_data.UseAmmo();
             }
         }
         
         public void Projectile() {
             Debug.Log($"{weapon_data.id} : Weapon.Projectile()");
+            
+            if (weapon_data.ammo != null && weapon_data.ammo.runtime_value <= 0) {
+                e_weapon_audio.Invoke(AClip_empty);
+                cooldown = -1;
+                return;
+            }
+            
             GetComponent<Animator>().Play("Attack");
             
             if (weapon_data.audio_fire != null) 

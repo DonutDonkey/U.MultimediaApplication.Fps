@@ -3,7 +3,12 @@ guid: f77e318948984db9aa144b9913931642
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - weapon_data: {instanceID: 0}
+  - AClip_empty: {instanceID: 0}
+  - e_weapon_blowback: {instanceID: 0}
+  - e_weapon_audio: {instanceID: 0}
+  - e_weapon_switch: {instanceID: 0}
   executionOrder: 0
   icon: {fileID: 2800000, guid: 60ba452ff4de00448852ad1d8427f1af, type: 3}
   userData: 

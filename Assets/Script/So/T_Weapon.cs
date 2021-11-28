@@ -13,7 +13,7 @@ namespace Script.So {
         public int max_distance;
 
         public AudioClip audio_fire;
-        
+
         [Header("Projectile options")]
         public bool is_projectile;
         public Projectile projectile_prefab;
