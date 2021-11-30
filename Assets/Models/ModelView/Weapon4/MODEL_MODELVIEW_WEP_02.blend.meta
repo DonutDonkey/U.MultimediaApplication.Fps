@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: d01070daff042074b9816bf5f51c8749
 ModelImporter:
-  serializedVersion: 21100
+  serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -3100369314251171874
@@ -15,6 +15,9 @@ ModelImporter:
   - first:
       74: -8945691123924629249
     second: Armature|Idle
+  - first:
+      74: -623603649343465320
+    second: Scene
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -31,6 +34,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -60,6 +64,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
@@ -71,6 +76,7 @@ ModelImporter:
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
