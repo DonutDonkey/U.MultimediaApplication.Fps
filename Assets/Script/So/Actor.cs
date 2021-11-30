@@ -5,5 +5,6 @@ namespace Script.So {
     public class Actor : ScriptableObject {
         public int health;
         public float FOV;
+        public float viewRadius;
     }
 }

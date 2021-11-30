@@ -1,5 +1,6 @@
 using Script.So;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Script.Mono.Actors {
     public class Enemy : UniqueMonoBehaviour, IActor, IKnockbackable, IDamageable {
@@ -10,8 +11,10 @@ namespace Script.Mono.Actors {
         [Header("Runtime Data")]
         [SerializeField] private int r_health;
 
-
-        private void Awake() => r_health = d_actor.health;
+        private void Awake()
+        {
+            r_health = d_actor.health;
+        } 
 
         public Vector3 GetPosition() => this.gameObject.transform.position;
         public Transform GetTransform() => this.gameObject.transform;
