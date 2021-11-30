@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daccd76903a34192a30d616b15847b27, type: 3}
-  m_Name: ENEMY00
+  m_Script: {fileID: 11500000, guid: e5ce2528a55847c5a945c75195d40fd6, type: 3}
+  m_Name: CHASE
   m_EditorClassIdentifier: 
-  health: 200
-  FOV: 75
-  viewRadius: 10
