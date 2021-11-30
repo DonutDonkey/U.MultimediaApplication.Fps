@@ -50,11 +50,12 @@ namespace Script.Mono.AI {
         {
             A_self = GO_self.GetComponent<IActor>();
             agent = GetComponent<NavMeshAgent>();
+            A_current_poi = GO_default_poi.GetComponent<IActor>();
         }
 
         private void Start()
         {
-            A_current_poi = GO_default_poi.GetComponent<IActor>();
+            //A_current_poi = GO_default_poi.GetComponent<IActor>();
         }
 
         private void Update() {

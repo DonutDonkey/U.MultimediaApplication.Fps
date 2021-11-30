@@ -10,8 +10,10 @@ namespace Script.Mono.UI {
         private void Awake() => tmp_text = GetComponent<TextMeshProUGUI>();
 
         private void Update() {
-            if (!tmp_text.text.Equals(value.runtime_value.ToString()))
+            if (!tmp_text.text.Equals(value.runtime_value.ToString()) && value.runtime_value > 0)
                 tmp_text.text = value.runtime_value.ToString();
+            else if (value.runtime_value <= 0)
+                tmp_text.text = string.Empty;
         }
     }
 }

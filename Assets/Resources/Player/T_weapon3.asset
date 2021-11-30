@@ -16,7 +16,9 @@ MonoBehaviour:
   damage: 5
   cooldown: 0.1
   pellets: 1
-  accuracy: 0.9
-  max_distance: 100
+  accuracy: 0.9425
+  max_distance: 256
+  audio_fire: {fileID: 8300000, guid: 35d0f31beb6f2254faa1c5294ec62705, type: 3}
   is_projectile: 0
   projectile_prefab: {fileID: 0}
+  ammo: {fileID: 11400000, guid: 990d9c7c70fb4a540b911036c8fe8bc1, type: 2}

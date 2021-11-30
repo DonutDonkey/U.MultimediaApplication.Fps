@@ -19,7 +19,7 @@ namespace Script {
                 OrderBy(s => (rnd.Next(2) % 2) == 0).ToArray());
             
             if (string.IsNullOrEmpty(property.stringValue))
-                property.stringValue = $"{DateTime.Now} : MONO";
+                property.stringValue = rand;
             
             GUI.enabled = true;
         }

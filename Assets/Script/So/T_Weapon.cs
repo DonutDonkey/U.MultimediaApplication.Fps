@@ -1,3 +1,4 @@
+using Script.Mono;
 using UnityEngine;
 
 namespace Script.So {
@@ -10,9 +11,16 @@ namespace Script.So {
         [Range(0.9f, 1)] public float accuracy;
 
         public int max_distance;
-        
+
+        public AudioClip audio_fire;
+
         [Header("Projectile options")]
         public bool is_projectile;
-        public GameObject projectile_prefab;
+        public Projectile projectile_prefab;
+
+        [Header("Refferences")]
+        public Runtime_IntValue ammo;
+
+        public void UseAmmo() => ammo.runtime_value -= 1;
     }
 }

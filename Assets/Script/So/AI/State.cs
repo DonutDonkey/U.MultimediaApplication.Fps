@@ -33,10 +33,4 @@ namespace Script.So.AI {
             Debug.Log($"{in_self.ACurrentPoi.GetTransform().position}");
         }
     }
-
-    public class WalkState : State
-    {
-        
-    }
-    
 }

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: T_weapon4
   m_EditorClassIdentifier: 
   id: 'Weapon : 4'
-  damage: 160
-  cooldown: 1.05
+  damage: 200
+  cooldown: 0.85
   pellets: 0
   accuracy: 1
   max_distance: 1000
+  audio_fire: {fileID: 8300000, guid: c8a473ef89053154bbda4df65edb31d4, type: 3}
   is_projectile: 1
-  projectile_prefab: {fileID: 0}
+  projectile_prefab: {fileID: 1212783330519460345, guid: 1461afb2378992447b1e833af44cf5e8, type: 3}
+  ammo: {fileID: 11400000, guid: 783dfc09380bf4a4ba10d06e7cf1e374, type: 2}
