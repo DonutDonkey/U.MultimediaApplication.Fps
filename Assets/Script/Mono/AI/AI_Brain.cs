@@ -15,6 +15,7 @@ namespace Script.Mono.AI {
         [Header("Object refferences")]
         [SerializeField] private GameObject GO_self;
         [SerializeField] private GameObject GO_default_poi;
+        public Animator animator;
         
         private IActor A_self;
         private IActor A_current_poi;
@@ -89,6 +90,12 @@ namespace Script.Mono.AI {
         public GameObject GetSelfGameObject()
         {
             return GO_self;
+        }
+
+        public void SetAnimationState(string in_state_name) {
+            foreach(AnimatorControllerParameter parameter in animator.parameters)            
+                animator.SetBool(parameter.name, false);
+            animator.SetBool(in_state_name, true);
         }
     }
 }

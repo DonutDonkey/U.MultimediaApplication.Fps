@@ -12,6 +12,7 @@ namespace Script.Mono.Actors.Player {
         private float jump_strength = 2f;
 
         private float knockback_counter = 0f;
+        
         private void Awake() => plr_ctrl_helper = new Helper_ControllerPlayer(plr_ctrl);
         private void Start() => Cursor.lockState = CursorLockMode.Locked; //TODO : fix
 
@@ -21,6 +22,11 @@ namespace Script.Mono.Actors.Player {
             velocity.y = plr_ctrl_helper.GetVelocity(velocity);
             velocity.y = plr_ctrl_helper.GetAirVelocity(velocity, jump_strength);
 
+            // if grounded
+            // GroundMove
+            //Else
+            // AirMove
+            // move Velocity * Time.deltaTime
             plr_ctrl.Move(motion * speed * Time.deltaTime);
 
 
@@ -33,6 +39,37 @@ namespace Script.Mono.Actors.Player {
             }
 
             plr_ctrl.Move(velocity * Time.deltaTime);
+        }
+
+        // http://adrianb.io/2015/02/14/bunnyhop.html
+        // https://github.com/IsaiahKelly/quake3-movement-for-unity/blob/master/Quake3Movement/Scripts/Q3PlayerController.cs
+        private void GroundMove(Vector3 motion) {
+            // m_MoveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            var wishDir = new Vector3(motion.x, 0, motion.z);
+            wishDir = transform.TransformDirection(wishDir);
+            wishDir.Normalize();
+
+            var wishspeed = wishDir.magnitude;
+            
+            // wishspeed *= MaxSpeed;
+            // Prev Velocity is our Velocity member in class sp slo[ om jere
+            // ground_accelerate and max_velocity_ground are server-defined movement variables
+            // return Accelerate(accelDir, prevVelocity, ground_accelerate, max_velocity_ground);
+            // Accelerate(wishDir, wishspeed, m_GroundSettings.Acceleration);
+        }
+
+        private void Accelerate(Vector3 target_direction, float accelerate, float max_velocity) {
+            float proj_vel = Vector3.Dot(velocity, target_direction);
+            // float accel_vel = accelerate - proj_vel;
+            float accel_vel = accelerate * Time.deltaTime;
+            if (accel_vel <= 0) return;
+
+            if (proj_vel + accel_vel > max_velocity)
+                accel_vel = max_velocity - proj_vel;
+
+            velocity = target_direction * accel_vel;
+            velocity.x += target_direction.x * accel_vel;
+            velocity.z += target_direction.z * accel_vel;
         }
 
         public void KnockBack(Vector3 other, float force) {

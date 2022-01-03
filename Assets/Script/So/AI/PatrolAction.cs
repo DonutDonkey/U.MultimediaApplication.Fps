@@ -18,6 +18,7 @@ namespace Script.So.AI
 
         private void Patrol(AI_Brain brain)
         {
+            brain.SetAnimationState("patrol");
             NavMeshAgent agent = brain.agent;
             GameObject[] poiArr = brain.PoiIdleWalkPoints;
 
