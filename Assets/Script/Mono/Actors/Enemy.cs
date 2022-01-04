@@ -1,6 +1,5 @@
 using Script.So;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Script.Mono.Actors {
     public class Enemy : UniqueMonoBehaviour, IActor, IKnockbackable, IDamageable {

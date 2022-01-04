@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using UnityEditor;
 namespace Script.Mono.Actors.FOV
 {

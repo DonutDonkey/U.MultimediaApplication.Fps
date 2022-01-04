@@ -1,4 +1,3 @@
-using System;
 using Script.So.AI;
 using UnityEngine;
 using UnityEngine.AI;
@@ -97,5 +96,7 @@ namespace Script.Mono.AI {
                 animator.SetBool(parameter.name, false);
             animator.SetBool(in_state_name, true);
         }
+
+        public override string ToString() => currentState != null ? currentState.ToString() : "NONE";
     }
 }

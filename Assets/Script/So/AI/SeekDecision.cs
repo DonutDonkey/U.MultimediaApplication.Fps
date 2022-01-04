@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using Script.Mono.Actors;
-using Script.Mono.Actors.Player;
 using Script.Mono.AI;
 using UnityEngine;
 

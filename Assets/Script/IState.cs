@@ -1,5 +1,4 @@
 using Script.Mono.AI;
-using Script.So.AI;
 
 namespace Script {
     public interface IState {

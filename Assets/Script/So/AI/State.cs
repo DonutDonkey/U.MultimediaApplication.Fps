@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using Script.Mono.AI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Script.So.AI {
     [CreateAssetMenu(fileName = "STATE", menuName = "AI/State", order = 0)]
