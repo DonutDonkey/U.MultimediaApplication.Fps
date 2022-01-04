@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Script.Mono.Actors.Player {
@@ -9,6 +10,7 @@ namespace Script.Mono.Actors.Player {
         private Vector3 velocity;
 
         private float speed = 10f;
+        private float speed_max = 20f;
         private float jump_strength = 2f;
 
         private float knockback_counter = 0f;
@@ -16,7 +18,39 @@ namespace Script.Mono.Actors.Player {
         private void Awake() => plr_ctrl_helper = new Helper_ControllerPlayer(plr_ctrl);
         private void Start() => Cursor.lockState = CursorLockMode.Locked; //TODO : fix
 
+        private bool prev_is_air = false;
+        private bool prev_is_decreasing = false;
+
+        private void CheckSpeedIncrease() {
+            if (!plr_ctrl.isGrounded) return;
+            if (!plr_ctrl_helper.IsJumping()) return;
+            
+            prev_is_air  = false;
+            speed += (plr_ctrl_helper.GetMotion() != Vector3.zero) ? 1 : 0f;
+        }
+
+        private void CheckSpeedDecrease() {
+            if (plr_ctrl_helper.IsJumping()) {
+                prev_is_air = true;          
+            } else if (!prev_is_decreasing) {
+                prev_is_decreasing = true;
+                StartCoroutine(BunnyHopSpeedDecrease());
+            }
+        }
+
+        private IEnumerator BunnyHopSpeedDecrease() {
+            while (10f < speed && prev_is_decreasing) {
+                speed--;
+                yield return new WaitForSeconds(0.01f);
+            }
+            prev_is_decreasing = false;
+        }
+
         private void Update() {
+            CheckSpeedIncrease();
+            var grounded = prev_is_air;
+    
+            
             var motion = plr_ctrl_helper.GetMotion();
 
             velocity.y = plr_ctrl_helper.GetVelocity(velocity);
@@ -39,6 +73,7 @@ namespace Script.Mono.Actors.Player {
             }
 
             plr_ctrl.Move(velocity * Time.deltaTime);
+            CheckSpeedDecrease();
         }
 
         // http://adrianb.io/2015/02/14/bunnyhop.html

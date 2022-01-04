@@ -35,5 +35,10 @@ namespace Script.Mono.Actors.Player {
 
         private void NormalizeRuntimeArmor() =>
             r_armor.runtime_value = r_armor.runtime_value < 0 ? 0 : r_armor.runtime_value;
+
+        private void OnTriggerEnter(Collider other) {
+            var pickup = other.GetComponent<IPickup>();
+            pickup?.Invoke();
+        }
     }
 }
