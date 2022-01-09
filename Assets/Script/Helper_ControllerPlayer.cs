@@ -11,6 +11,9 @@ namespace Script {
             char_ctrl.transform.right * GetHorizontalMovement() +
             char_ctrl.transform.forward * GetVerticalMovement();
         
+        public Vector3 GetVertical() =>
+            char_ctrl.transform.forward * GetVerticalMovement();
+        
         public float GetVelocity(Vector3 velocity) => (char_ctrl.isGrounded) 
             ? 0f 
             : velocity.y + World_Constants.GRAVITY * Time.deltaTime;

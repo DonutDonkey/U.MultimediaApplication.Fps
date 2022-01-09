@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Script.Mono.Actors.Player {
@@ -26,7 +29,8 @@ namespace Script.Mono.Actors.Player {
             if (!plr_ctrl_helper.IsJumping()) return;
             
             prev_is_air  = false;
-            speed += (plr_ctrl_helper.GetMotion() != Vector3.zero) ? 1 : 0f;
+            speed += (plr_ctrl_helper.GetMotion() != Vector3.zero) ? acceleration : 0f;
+            speed = speed < 10f ? 10f : speed;
         }
 
         private void CheckSpeedDecrease() {
@@ -46,6 +50,8 @@ namespace Script.Mono.Actors.Player {
             prev_is_decreasing = false;
         }
 
+        private float acceleration =0f;
+        private Vector3 last_position;
         private void Update() {
             CheckSpeedIncrease();
             var grounded = prev_is_air;
@@ -61,9 +67,9 @@ namespace Script.Mono.Actors.Player {
             //Else
             // AirMove
             // move Velocity * Time.deltaTime
+
             plr_ctrl.Move(motion * speed * Time.deltaTime);
-
-
+            
             knockback_counter -= knockback_counter >= 0 ? Time.deltaTime : 0;
             //Also check if hit the wall or something simmilair? but gravity should do the trick
             if (knockback_counter <= 0 &&
@@ -74,6 +80,31 @@ namespace Script.Mono.Actors.Player {
 
             plr_ctrl.Move(velocity * Time.deltaTime);
             CheckSpeedDecrease();
+            
+        }
+
+        private float last_input_acc = 0f;
+
+        public TextMeshProUGUI debug_text;
+        // inny wishdir musi byc chyba?
+        private void LateUpdate() {
+            var wishdir = Vector3.Normalize(transform.position - plr_ctrl_helper.GetVertical());
+            var input_acc = plr_ctrl_helper.GetHorizontalMovement();
+            if (!transform.position.Equals(last_position) && plr_ctrl_helper.GetVerticalMovement() > 0f
+                                                          && Mathf.Abs(input_acc -last_input_acc) > 0)
+                acceleration = Mathf.Abs(input_acc);
+                // acceleration = math.abs(Vector3.Dot(transform.forward, wishdir));
+            else if (plr_ctrl_helper.GetHorizontalMovement() != 0)
+                acceleration = 0;
+            else
+                acceleration = speed > 10 ? -10f : 0;
+            
+            last_position = transform.position;
+            last_input_acc = input_acc;
+            
+            #if UNITY_EDITOR
+            debug_text.text = speed.ToString();
+            #endif
         }
 
         // http://adrianb.io/2015/02/14/bunnyhop.html
