@@ -16,6 +16,7 @@ TagManager:
   - ENEMY09
   - Pickup
   - Environment
+  - Floor
   layers:
   - Default
   - TransparentFX

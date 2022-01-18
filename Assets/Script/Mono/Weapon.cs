@@ -115,11 +115,11 @@ namespace Script.Mono {
 
             if(Input.GetKeyDown(KeyCode.Alpha1))
                 e_weapon_switch.Invoke(World_Constants.ID_WEAPON_1);            
-            if(Input.GetKeyDown(KeyCode.Alpha2))
+            if(Input.GetKeyDown(KeyCode.Alpha2) && PlayerContainer.Instance.IDWeapon2.Value)
                 e_weapon_switch.Invoke(World_Constants.ID_WEAPON_2);
-            if(Input.GetKeyDown(KeyCode.Alpha3))
+            if(Input.GetKeyDown(KeyCode.Alpha3) && PlayerContainer.Instance.IDWeapon3.Value)
                 e_weapon_switch.Invoke(World_Constants.ID_WEAPON_3);
-            if(Input.GetKeyDown(KeyCode.Alpha4))
+            if(Input.GetKeyDown(KeyCode.Alpha4) && PlayerContainer.Instance.IDWeapon4.Value)
                 e_weapon_switch.Invoke(World_Constants.ID_WEAPON_4);
         }
 #if UNITY_EDITOR

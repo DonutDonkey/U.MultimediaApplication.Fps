@@ -20,6 +20,7 @@ namespace Script.So {
 
         [Header("Refferences")]
         public Runtime_IntValue ammo;
+        public BoolValue is_equipped;
 
         public void UseAmmo() => ammo.runtime_value -= 1;
     }

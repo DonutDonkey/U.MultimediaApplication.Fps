@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Script.So {
     [CreateAssetMenu(fileName = "New Player Container", menuName = "Containers/Player Container")]
-    public class PlayerContainer : SingletonScriptableObj<PlayerContainer>, ISerializationCallbackReceiver {
+    public class PlayerContainer : SingletonScriptableObj<PlayerContainer> {
         [SerializeField] private Runtime_IntValue player_health;
         [SerializeField] private Runtime_IntValue player_armor;
         
@@ -11,13 +11,20 @@ namespace Script.So {
         [SerializeField] private Runtime_IntValue player_ammo_1;
         [SerializeField] private Runtime_IntValue player_ammo_2;
         [SerializeField] private Runtime_IntValue player_ammo_3;
-        
+
+        [SerializeField] private BoolReference ID_WEAPON_2;
+        [SerializeField] private BoolReference ID_WEAPON_3;
+        [SerializeField] private BoolReference ID_WEAPON_4;
+
+        public BoolReference IDWeapon2 => ID_WEAPON_2;
+        public BoolReference IDWeapon3 => ID_WEAPON_3;
+        public BoolReference IDWeapon4 => ID_WEAPON_4;
+
         public void SetDefaultValues() {
-            //Event?
+            ID_WEAPON_2.Value = false;
+            ID_WEAPON_3.Value = false;
+            ID_WEAPON_4.Value = false;
         }
-        //Custom calls for serialization, used for dicitonaries, custom types etc, using so all run values can only be changed at runtime
-        public void OnBeforeSerialize() { }
-        public void OnAfterDeserialize() { }
     }
 
     [System.Serializable]

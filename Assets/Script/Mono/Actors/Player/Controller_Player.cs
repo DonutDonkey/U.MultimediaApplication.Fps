@@ -82,6 +82,7 @@ namespace Script.Mono.Actors.Player {
             CheckSpeedDecrease();
             
         }
+        private void OnControllerColliderHit(ControllerColliderHit hit) => speed = hit.collider.tag.Equals("Floor") ? speed : 10;
 
         private float last_input_acc = 0f;
 
@@ -90,8 +91,7 @@ namespace Script.Mono.Actors.Player {
         private void LateUpdate() {
             var wishdir = Vector3.Normalize(transform.position - plr_ctrl_helper.GetVertical());
             var input_acc = plr_ctrl_helper.GetHorizontalMovement();
-            if (!transform.position.Equals(last_position) && plr_ctrl_helper.GetVerticalMovement() > 0f
-                                                          && Mathf.Abs(input_acc -last_input_acc) > 0)
+            if (!transform.position.Equals(last_position) && plr_ctrl_helper.GetVerticalMovement() > 0f)
                 acceleration = Mathf.Abs(input_acc);
                 // acceleration = math.abs(Vector3.Dot(transform.forward, wishdir));
             else if (plr_ctrl_helper.GetHorizontalMovement() != 0)

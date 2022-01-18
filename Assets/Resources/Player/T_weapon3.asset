@@ -22,3 +22,4 @@ MonoBehaviour:
   is_projectile: 0
   projectile_prefab: {fileID: 0}
   ammo: {fileID: 11400000, guid: 990d9c7c70fb4a540b911036c8fe8bc1, type: 2}
+  is_equipped: {fileID: 11400000, guid: 6af1c26a5c8c9a94d8520f6a25ef218a, type: 2}
