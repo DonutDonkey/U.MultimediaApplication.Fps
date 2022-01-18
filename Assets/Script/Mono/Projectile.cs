@@ -1,6 +1,7 @@
 using System;
 using Script.Mono.Managers;
 using Script.So;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -13,6 +14,7 @@ namespace Script.Mono {
         
         [Header("Weapon data")]
         [SerializeField] private T_Weapon data_weapon;
+        [SerializeField] private int damage_const;
         
         [Header("Projectile data")]
         [SerializeField] private float projectile_speed;
@@ -28,12 +30,17 @@ namespace Script.Mono {
 
         private IObjectPool<Projectile> _pool;
         public IObjectPool<Projectile> Pool { get => _pool; set => _pool = value; }
-        
+
+        private int damage;
         private void Update() {
             Debug.Log(projectile_tag_aware.ToString());
         }
 
-        private void Awake() => rb_projectile = GetComponent<Rigidbody>();
+        private void Awake() {
+            rb_projectile = GetComponent<Rigidbody>();
+            damage = data_weapon != null ? data_weapon.damage : damage_const;
+        }
+
         private void OnEnable() => rb_projectile.velocity = transform.forward * projectile_speed;
 
         private void OnCollisionEnter(Collision other) {
@@ -53,7 +60,7 @@ namespace Script.Mono {
                 }
             
             var damagable = other.gameObject.GetComponent<IDamageable>();
-            damagable?.TakeDamage(data_weapon.damage, PosProjectileActorPosition);
+            damagable?.TakeDamage(damage, PosProjectileActorPosition);
             
             var expl = Manager_Pooler.Instance.Pool_explosion.Get();
             expl.transform.position = gameObject.transform.position;
