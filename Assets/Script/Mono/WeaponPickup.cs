@@ -11,16 +11,17 @@ namespace Script.Mono {
         public GameObject[] deactivate;
         public GameObject activate;
         public void Invoke() {
-            if (BR_weapon.Value) return;
+            if (!BR_weapon.Value) {
+                activate.SetActive(true);
 
+                foreach (var go in deactivate)
+                    go.SetActive(false);
+            }
             BR_weapon.Value = true;
+            
             E_ammo_event.Invoke(amount);
 
-            activate.SetActive(true);
-            
-            foreach (var go in deactivate)
-                go.SetActive(false);
-            
+
             gameObject.SetActive(false);
         }
     }
