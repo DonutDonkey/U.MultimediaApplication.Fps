@@ -39,6 +39,9 @@ ModelImporter:
   - first:
       74: -4586903844531511714
     second: A_anim_death
+  - first:
+      74: -159452164849008215
+    second: A_anim_death (1)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -69,8 +72,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_idle
-      takeName: A_idle
+      name: A_anim_death (1)
+      takeName: A_anim_death
       internalID: 0
       firstFrame: 0
       lastFrame: 59
@@ -80,7 +83,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

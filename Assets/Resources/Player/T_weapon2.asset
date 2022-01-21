@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: T_weapon2
   m_EditorClassIdentifier: 
   id: 'Weapon : 2'
-  damage: 10
+  damage: 20
   cooldown: 1
   pellets: 6
   accuracy: 0.95

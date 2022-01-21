@@ -19,6 +19,8 @@ namespace Script.Mono.Managers {
         [SerializeField] private PoolType weapon_hitscan_environment_pt;
         [SerializeField] private ParticleSystem weapon_hitscan_blood;
         [SerializeField] private PoolType weapon_hitscan_blood_pt;
+        
+        [SerializeField] private Projectile projectile_enemy1;
 
         private GameObject parent;
         private GameObject Parent => parent ??= GameObject.Find("POOL"); 
@@ -126,6 +128,24 @@ namespace Script.Mono.Managers {
                     50
             ); }
         }
+        
+        private IObjectPool<Projectile> pool_enemy_projectile_1;
+        public IObjectPool<Projectile> PoolEnemyProjectile1 {
+            get { return pool_enemy_projectile_1 ??= new ObjectPool<Projectile> (
+                () => {
+                    var proj = Instantiate(projectile_enemy1, Parent.transform);
+                    proj.Pool = pool_enemy_projectile_1;
+                    return proj;
+                },
+                in_item => in_item.gameObject.SetActive(true),
+                in_item => in_item.gameObject.SetActive(false),
+                in_item => Destroy(in_item.gameObject),
+                true,
+                50,
+                50
+            ); } 
+        }
+
     }
 
     [RequireComponent(typeof(ParticleSystem))]

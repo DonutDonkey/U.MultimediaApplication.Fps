@@ -26,10 +26,5 @@ namespace Script.So.AI {
                 in_self.remainState = decided ? transition.trueState : transition.falseState;
             }
         }
-
-        public void lolmethod(AI_Brain in_self)
-        {
-            Debug.Log($"{in_self.ACurrentPoi.GetTransform().position}");
-        }
     }
 }

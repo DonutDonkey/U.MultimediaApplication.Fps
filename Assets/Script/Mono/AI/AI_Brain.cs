@@ -1,4 +1,5 @@
 using Script.So.AI;
+using Script.So.Events;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -92,11 +93,16 @@ namespace Script.Mono.AI {
         }
 
         public void SetAnimationState(string in_state_name) {
+            if(animator.GetBool(in_state_name)) return;
+
             foreach(AnimatorControllerParameter parameter in animator.parameters)            
                 animator.SetBool(parameter.name, false);
             animator.SetBool(in_state_name, true);
         }
-
+        
         public override string ToString() => currentState != null ? currentState.ToString() : "NONE";
+
+        public bool event_done = false;
+        public GeneralEvent e_death;
     }
 }
