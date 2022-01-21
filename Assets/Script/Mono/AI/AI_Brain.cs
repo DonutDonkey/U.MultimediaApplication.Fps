@@ -51,6 +51,7 @@ namespace Script.Mono.AI {
             A_self = GO_self.GetComponent<IActor>();
             agent = GetComponent<NavMeshAgent>();
             A_current_poi = GO_default_poi.GetComponent<IActor>();
+            stateTimeElapsed = 0.0f;
         }
 
         private void Start()
@@ -60,24 +61,23 @@ namespace Script.Mono.AI {
 
         private void Update() {
             currentState.UpdateState(this);
-            
             Debug.Log($"Current state: {currentState.name}");
-            
+            stateTimeElapsed += Time.deltaTime;
             // ONLY TO SEE IF IT CORRECTLY CAPTURES THE IACTORS
             //Debug.Log($"{A_self.GetType()} : " + A_self.GetTransform().position);
             //Debug.Log($"{A_current_poi.GetType()}: " + A_current_poi.IsDead());
         }
         public void TransitionToState(State nextState)
         {
-            //if (nextState != remainState) 
-            //{
+            if (nextState != remainState) 
+            {
                 currentState = nextState;
                 OnExitState ();
-            //}
+            }
         }
         public bool CheckIfCountDownElapsed(float duration)
         {
-            stateTimeElapsed += Time.deltaTime;
+            //Debug.Log($"Time enlapsed: {stateTimeElapsed}");
             return (stateTimeElapsed >= duration);
         }
 

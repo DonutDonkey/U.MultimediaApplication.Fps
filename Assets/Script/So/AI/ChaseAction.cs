@@ -8,12 +8,39 @@ namespace Script.So.AI
     {
         public override void Act(AI_Brain brain)
         {
-            Chase(brain);
+            float random_jitter = Random.Range(0.1f, 0.3f);
+            if (!brain.CheckIfCountDownElapsed(5 + random_jitter))
+            {
+                if (isShootDistance(brain))
+                {
+                    Stop(brain);
+                    Aim(brain);
+                    Shoot(brain);
+                }
+                else Chase(brain);
+                
+            }
+            else
+            {
+                if (!brain.CheckIfCountDownElapsed(6.5f - random_jitter))
+                {
+                    Stop(brain);
+                    Aim(brain);
+                    Shoot(brain);
+                }
+                else brain.stateTimeElapsed = 0;
+            }
         }
+    
+        private void Chase(AI_Brain brain) => brain.agent.SetDestination(brain.ACurrentPoi.GetPosition());
+        private void Stop(AI_Brain brain) => brain.agent.ResetPath();
+        private void Aim(AI_Brain brain) => brain.transform.LookAt(brain.ACurrentPoi.GetPosition(), Vector3.up);
 
-        private void Chase(AI_Brain brain)
+        private bool isShootDistance(AI_Brain brain) =>
+            Vector3.Distance(brain.ASelf.GetPosition(), brain.ACurrentPoi.GetPosition()) < 10;
+        private void Shoot(AI_Brain brain)
         {
-            brain.agent.SetDestination(brain.ACurrentPoi.GetPosition());
+            Debug.Log($"I shoot now!!!");
         }
     }
 }

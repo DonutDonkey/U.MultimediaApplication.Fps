@@ -12,16 +12,18 @@ namespace Script.So.AI {
                 action.Act(in_self);
         }
 
-        public void UpdateState(AI_Brain in_self) {
-            DoActions (in_self);
+        public async void UpdateState(AI_Brain in_self) {
             DecideTransition (in_self);
+            DoActions (in_self);
         }
 
         public void DecideTransition(AI_Brain in_self) {
             foreach (var transition in transitions)
             {
                 bool decided = transition.decision.Decide(in_self);
+                
                 in_self.TransitionToState(decided ? transition.trueState : transition.falseState);
+                in_self.remainState = decided ? transition.trueState : transition.falseState;
             }
         }
 
