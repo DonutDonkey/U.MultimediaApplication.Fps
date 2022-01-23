@@ -29,6 +29,8 @@ namespace Script.Mono.AI {
         [HideInInspector] public float stateTimeElapsed;
         public NavMeshAgent agent;
         public int nextWaypoint;
+
+        public AudioClip enemy_grunt;
         
         public IActor ASelf
         {
@@ -104,5 +106,8 @@ namespace Script.Mono.AI {
 
         public bool event_done = false;
         public GeneralEvent e_death;
+
+        public E_AudioClip e_audio;
+        public void PlayGrunt() => e_audio.Invoke(enemy_grunt);
     }
 }

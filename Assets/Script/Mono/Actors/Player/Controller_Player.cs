@@ -19,6 +19,8 @@ namespace Script.Mono.Actors.Player {
         private void Awake() => plr_ctrl_helper = new Helper_ControllerPlayer(plr_ctrl);
         private void Start() => Cursor.lockState = CursorLockMode.Locked; //TODO : fix
 
+        public void UnlockCursor() => Cursor.lockState = CursorLockMode.None;
+        
         private bool prev_is_air = false;
         private bool prev_is_decreasing = false;
 
@@ -137,6 +139,7 @@ namespace Script.Mono.Actors.Player {
         }
 
         public void KnockBack(Vector3 other, float force) {
+            return; // NOT WORKING SO RETURN :(
             knockback_counter = 0.5f;
             
             velocity = (transform.position - other).normalized * force;

@@ -10,6 +10,7 @@ namespace Script.So.AI {
             brain.SetAnimationState("death");
             if (!brain.event_done) {
                 brain.e_death.Invoke();
+                brain.PlayGrunt();
                 brain.event_done = true; // cause otherwise will infinitly addup xd
             }
         }
