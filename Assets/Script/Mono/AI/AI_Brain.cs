@@ -29,6 +29,7 @@ namespace Script.Mono.AI {
         [HideInInspector] public float stateTimeElapsed;
         public NavMeshAgent agent;
         public int nextWaypoint;
+        public bool shootToggle = true;
 
         public AudioClip enemy_grunt;
         

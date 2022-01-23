@@ -9,27 +9,32 @@ namespace Script.So.AI
     {
         public override void Act(AI_Brain brain)
         {
-            float random_jitter = Random.Range(0.1f, 0.3f);
-            if (!brain.CheckIfCountDownElapsed(5 + random_jitter))
+            float random_jitter = Random.Range(0.05f, 0.1f);
+            if (brain.shootToggle)
             {
+                
+                brain.shootToggle = false;
                 if (isShootDistance(brain))
                 {
                     Stop(brain);
-                    Aim(brain);
                     Shoot(brain);
                 }
-                else Chase(brain);
+                else
+                {
+                    Chase(brain);
+                    Shoot(brain);
+                }
                 
             }
-            else
+
+            if (!brain.CheckIfCountDownElapsed(1.8f - random_jitter))
             {
-                if (!brain.CheckIfCountDownElapsed(6.5f - random_jitter))
-                {
-                    Stop(brain);
-                    Aim(brain);
-                    Shoot(brain);
-                }
-                else brain.stateTimeElapsed = 0;
+                Aim(brain);
+            }
+            if (!brain.CheckIfCountDownElapsed(1.5f - random_jitter))
+            {
+                brain.shootToggle = true;
+                brain.stateTimeElapsed = 0;
             }
         }
     
