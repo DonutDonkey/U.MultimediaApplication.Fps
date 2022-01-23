@@ -26,12 +26,16 @@ namespace Script.So.AI
                 }
                 
             }
+            else
+            {
+                Chase(brain);
+            }
 
-            if (!brain.CheckIfCountDownElapsed(1.8f - random_jitter))
+            if (!brain.CheckIfCountDownElapsed(0.5f - random_jitter))
             {
                 Aim(brain);
             }
-            if (!brain.CheckIfCountDownElapsed(1.5f - random_jitter))
+            if (brain.CheckIfCountDownElapsed(1.5f - random_jitter))
             {
                 brain.shootToggle = true;
                 brain.stateTimeElapsed = 0;

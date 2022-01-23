@@ -26,7 +26,7 @@ namespace Script.Mono.AI {
         public State currentState;
         public State remainState;
         
-        [HideInInspector] public float stateTimeElapsed;
+        public float stateTimeElapsed;
         public NavMeshAgent agent;
         public int nextWaypoint;
         public bool shootToggle = true;
