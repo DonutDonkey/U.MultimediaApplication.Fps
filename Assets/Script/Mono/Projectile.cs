@@ -27,8 +27,7 @@ namespace Script.Mono {
         public Transform PosProjectileActorPosition { get => pos_projectile_actor_position; set => pos_projectile_actor_position = value; }
 
 
-        private IObjectPool<Projectile> _pool;
-        public IObjectPool<Projectile> Pool { get => _pool; set => _pool = value; }
+        public IObjectPool<Projectile> pool;
 
         private int damage;
         private void Update() {
@@ -50,7 +49,7 @@ namespace Script.Mono {
                     case TagAction.None:
                         break;
                     case TagAction.Deactivate:
-                        gameObject.SetActive(false);
+                        pool.Release(this);
                         break;
                     case TagAction.Continue:
                         return;
@@ -60,12 +59,13 @@ namespace Script.Mono {
             
             var damagable = other.gameObject.GetComponent<IDamageable>();
             damagable?.TakeDamage(damage, PosProjectileActorPosition);
-            
-            var expl = Manager_Pooler.Instance.Pool_explosion.Get();
-            expl.transform.position = gameObject.transform.position;
-            expl.Explode();
 
-            _pool.Release(this);
+            if (!gameObject.tag.Contains("ENEMY")) {
+                var expl = Manager_Pooler.Instance.Pool_explosion.Get();
+                expl.transform.position = gameObject.transform.position;
+                expl.Explode();
+            }
+            pool.Release(this);
         }
     }
 }

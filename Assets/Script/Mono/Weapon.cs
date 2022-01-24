@@ -65,7 +65,7 @@ namespace Script.Mono {
             p.transform.forward = ProjectileInitTransform.forward;
             
             p.PosProjectileActorPosition = transform;
-            p.Pool = PoolProjectile;
+            p.pool = PoolProjectile;
             
             return p;
         }

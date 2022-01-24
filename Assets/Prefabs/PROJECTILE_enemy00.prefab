@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4214685334971926462}
   - component: {fileID: 4594080738299135249}
   - component: {fileID: 6030974638142280690}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PROJECTILE_enemy00
   m_TagString: ENEMY00
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 1212783330519460348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.16, y: 3.66, z: -9.582605}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212783330519460348}
-  m_Mesh: {fileID: 8509754176737191431, guid: a5daacc44ec913a488bc9d18b69f0173, type: 3}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1212783330519460346
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1212783330519460345
 MonoBehaviour:
@@ -116,9 +116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data_weapon: {fileID: 0}
   damage_const: 50
-  projectile_speed: 80
+  projectile_speed: 20
   projectile_tag_aware: 2
-  projectile_tag_action: 1
+  projectile_tag_action: 2
 --- !u!54 &1212783330519460342
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 2
+  m_CollisionDetection: 1
 --- !u!199 &4214685334971926462
 ParticleSystemRenderer:
   serializedVersion: 6

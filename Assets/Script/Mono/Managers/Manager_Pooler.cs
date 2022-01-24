@@ -123,7 +123,7 @@ namespace Script.Mono.Managers {
                 in_item => in_item.gameObject.SetActive(true),
                     in_item => in_item.gameObject.SetActive(false),
                     in_item => Destroy(in_item.gameObject),
-                    true,
+                    false,
                     50,
                     50
             ); }
@@ -134,7 +134,7 @@ namespace Script.Mono.Managers {
             get { return pool_enemy_projectile_1 ??= new ObjectPool<Projectile> (
                 () => {
                     var proj = Instantiate(projectile_enemy1, Parent.transform);
-                    proj.Pool = pool_enemy_projectile_1;
+                    proj.pool = Instance.pool_enemy_projectile_1;
                     return proj;
                 },
                 in_item => in_item.gameObject.SetActive(true),
@@ -145,7 +145,6 @@ namespace Script.Mono.Managers {
                 50
             ); } 
         }
-
     }
 
     [RequireComponent(typeof(ParticleSystem))]

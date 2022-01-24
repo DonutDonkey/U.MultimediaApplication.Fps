@@ -28,7 +28,10 @@ namespace Script.So.AI
             }
             else
             {
-                Chase(brain);
+                if (isShootDistance(brain))
+                    Stop(brain);
+                else
+                    Chase(brain);
             }
 
             if (!brain.CheckIfCountDownElapsed(0.5f - random_jitter))
@@ -54,12 +57,7 @@ namespace Script.So.AI
         private void Shoot(AI_Brain brain)
         {
             Debug.Log($"I shoot now!!!");
-            var projectile = Manager_Pooler.Instance.PoolEnemyProjectile1.Get();
-            projectile.PosProjectileActorPosition = brain.transform;
-            projectile.transform.position = brain.transform.position;
-            projectile.transform.forward = brain.transform.forward;
-                
-            projectile.gameObject.SetActive(true);
+            brain.Attack();
         }
     }
 }

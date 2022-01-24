@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 namespace Script.Mono.Actors.FOV
@@ -23,5 +24,4 @@ namespace Script.Mono.Actors.FOV
         }
     }
 }
-
-
+#endif

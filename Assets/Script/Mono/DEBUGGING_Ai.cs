@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using Script.Mono.AI;
 using UnityEngine;
 
@@ -24,3 +25,4 @@ public class DEBUGGING_Ai : MonoBehaviour {
         }
     }
 }
+#endif
