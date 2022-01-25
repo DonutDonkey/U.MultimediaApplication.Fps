@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daccd76903a34192a30d616b15847b27, type: 3}
   m_Name: ENEMY00
   m_EditorClassIdentifier: 
-  health: 200
+  health: 80
   FOV: 75
   viewRadius: 10

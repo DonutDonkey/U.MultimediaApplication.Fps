@@ -22,10 +22,11 @@ namespace Script.Mono.Actors {
 
         //TODO: make this work for enemy and also rework on player xd
         public void KnockBack(Vector3 other, float force) {
-            // knockback_counter = 0.5f;
+            if (!IsDead()) return;
+            
+            // var velocity = (transform.position - other).normalized * force;
             //
-            // velocity = (transform.position - other).normalized * force;
-            // velocity.y = force > 10f ? force : velocity.y;
+            // transform.position = Vector3.Lerp(transform.position, velocity, 1f);
         }
 
         public void TakeDamage(int in_value, Transform in_source) => r_health -= in_value;

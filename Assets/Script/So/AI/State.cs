@@ -24,6 +24,8 @@ namespace Script.So.AI {
                 
                 in_self.TransitionToState(decided ? transition.trueState : transition.falseState);
                 in_self.remainState = decided ? transition.trueState : transition.falseState;
+
+                if (decided) return;
             }
         }
     }

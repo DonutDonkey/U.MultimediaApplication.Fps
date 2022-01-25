@@ -26,6 +26,7 @@ namespace Script.So.AI
             }
 
             Debug.Log($"SEE TARGET: {result}");
+            
             return result;
         }
     }
